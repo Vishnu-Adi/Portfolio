@@ -1,111 +1,318 @@
-import { ArrowUpRight } from 'lucide-react'
-import Link from "next/link"
+// "use client";
+
+// import React from 'react';
+// import { motion, useScroll, useTransform } from 'framer-motion';
+// import { Github, ExternalLink, Circle } from 'lucide-react';
+
+// const cardStyles = [
+//   {
+//     bg: "bg-[#fdf9c4]",
+//     pattern: "radial-gradient(circle, rgba(249, 57, 87, 0.1) 1px, transparent 1px)",
+//     border: "border-[#f93957]"
+//   },
+//   {
+//     bg: "bg-[#f0f4ff]",
+//     pattern: "repeating-linear-gradient(45deg, rgba(59, 130, 246, 0.1) 0px, rgba(59, 130, 246, 0.1) 1px, transparent 1px, transparent 10px)",
+//     border: "border-blue-500"
+//   },
+//   {
+//     bg: "bg-[#fff1f2]",
+//     pattern: "radial-gradient(circle at 10px 10px, rgba(249, 57, 87, 0.1) 2px, transparent 0)",
+//     border: "border-pink-500"
+//   },
+//   {
+//     bg: "bg-[#f0fdf4]",
+//     pattern: "linear-gradient(0deg, transparent 24%, rgba(22, 163, 74, 0.1) 25%, rgba(22, 163, 74, 0.1) 26%, transparent 27%, transparent 74%, rgba(22, 163, 74, 0.1) 75%, rgba(22, 163, 74, 0.1) 76%, transparent 77%, transparent)",
+//     border: "border-green-500"
+//   },
+//   {
+//     bg: "bg-[#faf5ff]",
+//     pattern: "repeating-linear-gradient(-45deg, rgba(147, 51, 234, 0.1) 0px, rgba(147, 51, 234, 0.1) 1px, transparent 1px, transparent 10px)",
+//     border: "border-purple-500"
+//   },
+//   {
+//     bg: "bg-[#fff7ed]",
+//     pattern: "radial-gradient(circle at 2px 2px, rgba(234, 88, 12, 0.1) 1px, transparent 0)",
+//     border: "border-orange-500"
+//   }
+// ];
+
+// const ProjectCard = ({ project, index }) => {
+//   const style = cardStyles[index % cardStyles.length];
+  
+//   return (
+//     <motion.div
+//       initial={{ opacity: 0, y: 50 }}
+//       animate={{ opacity: 1, y: 0 }}
+//       transition={{ duration: 0.6, delay: index * 0.1 }}
+//       className={`group relative w-full rounded-xl ${style.bg} border-2 ${style.border} p-8 shadow-md`}
+//       style={{
+//         backgroundImage: style.pattern,
+//         backgroundSize: "20px 20px"
+//       }}
+//     >
+//       <h2 className="text-2xl font-bold text-gray-800 mb-3">{project.title}</h2>
+//       <p className="text-gray-600 mb-4">{project.description}</p>
+//       <div className="flex flex-wrap gap-2 mb-6">
+//         {project.technologies.map((tech, idx) => (
+//           <span
+//             key={idx}
+//             className="px-4 py-1 rounded-full bg-gray-100 text-gray-800 text-sm font-medium"
+//           >
+//             {tech}
+//           </span>
+//         ))}
+//       </div>
+//       <div className="flex gap-3">
+//         {project.link && (
+//           <motion.a
+//             whileHover={{ scale: 1.05 }}
+//             whileTap={{ scale: 0.95 }}
+//             href={project.link}
+//             target="_blank"
+//             rel="noopener noreferrer"
+//             className="p-2 rounded-full bg-gray-800 hover:bg-gray-900 transition-colors"
+//           >
+//             <ExternalLink className="w-5 h-5 text-white" />
+//           </motion.a>
+//         )}
+//         {project.github && (
+//           <motion.a
+//             whileHover={{ scale: 1.05 }}
+//             whileTap={{ scale: 0.95 }}
+//             href={project.github}
+//             target="_blank"
+//             rel="noopener noreferrer"
+//             className="p-2 rounded-full bg-gray-200 hover:bg-gray-300 transition-colors"
+//           >
+//             <Github className="w-5 h-5 text-gray-800" />
+//           </motion.a>
+//         )}
+//       </div>
+//     </motion.div>
+//   );
+// };
+
+// export default function ProjectsPage() {
+//   const projects = [
+//     {
+//       title: "Harmony",
+//       description: "A music-based social networking app that connects users through their musical tastes, featuring AI-powered music recommendations and collaborative playlists.",
+//       technologies: ["React Native", "AI/ML", "NLP", "TensorFlow"],
+//       link: "https://github.com/Vishnu-adi",
+//       github: "https://github.com/Vishnu-adi"
+//     },
+//     {
+//       title: "AnemiaSense",
+//       description: "An AI-based mobile application that uses image processing and machine learning to detect anemia in patients through non-invasive methods.",
+//       technologies: ["Bootstrap CSS", "TensorFlow", "Random Forest Classifier"],
+//       link: "https://anemiasense.onrender.com/",
+//       github: "https://github.com/Vishnu-adi/Anemia_Sense"
+//     },
+//     {
+//       title: "Movie Recommendation",
+//       description: "A personalized movie recommendation system using the MERN stack and machine learning algorithms to provide users with tailored suggestions.",
+//       technologies: ["MongoDB", "Express", "React", "Node.js", "Python", "Machine Learning", "NLP"],
+//       link: "https://your-live-demo.com",
+//       github: "https://github.com/Vishnu-adi/"
+//     },
+//     {
+//       title: "StockInsight",
+//       description: "A comprehensive stock market information website providing users with real-time data and insights, featuring favorite stock tracking and historical data analysis.",
+//       technologies: ["MERN Stack", "Finnhub API"],
+//       link: "https://your-live-demo.com",
+//       github: "https://github.com/yourusername/project"
+//     },
+//     {
+//       title: "Flutter Expense Tracker",
+//       description: "A cross-platform application to help users manage and track their expenses, featuring expense categorization, visual summaries, and report generation.",
+//       technologies: ["Flutter", "Dart", "Hive"],
+//       link: "https://your-live-demo.com",
+//       github: "https://github.com/Vishnu-Adi/Expense_tracker"
+//     },
+//     {
+//       title: "Personal Bookshelf",
+//       description: "A digital bookshelf application that allows users to manage their reading list, discover new books, and track their reading progress.",
+//       technologies: ["React", "Open Library API"],
+//       link: "https://personal-bookshelf-hazel.vercel.app/",
+//       github: "https://github.com/Vishnu-Adi/personal-bookshelf"
+//     },
+//   ];
+
+//   return (
+//     <div className="min-h-screen bg-white py-16 px-4 sm:px-6 lg:px-8">
+//       <motion.div
+//         initial={{ opacity: 0, y: -20 }}
+//         animate={{ opacity: 1, y: 0 }}
+//         className="max-w-7xl mx-auto mb-12"
+//       >
+//         <h1 className="text-6xl font-bold mb-3 text-[#f93957]">Projects</h1>
+//         <p className="text-lg text-gray-600">Showcasing my work and creative endeavors</p>
+//       </motion.div>
+      
+//       <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8">
+//         {projects.map((project, index) => (
+//           <ProjectCard key={index} project={project} index={index} />
+//         ))}
+//       </div>
+//     </div>
+//   );
+// }
+
+"use client";
+
+import React from "react";
+import { motion } from "framer-motion";
+import { Github, ExternalLink } from "lucide-react";
+const cardStyles = [
+  {
+    bg: "bg-[#ff007f]", // Vibrant dark pink
+    border: "border-[#e60073]", // Slightly darker pink border
+  },
+  {
+    bg: "bg-[#ff6f00]", // Bright orange
+    border: "border-[#e65c00]", // Slightly darker orange border
+  },
+  {
+    bg: "bg-[#007f5f]", // Deep teal
+    border: "border-[#005f47]", // Darker teal border
+  },
+  {
+    bg: "bg-[#5f00a5]", // Rich purple
+    border: "border-[#4b0082]", // Indigo border
+  },
+  {
+    bg: "bg-[#0073e6]", // Bright blue
+    border: "border-[#005bb5]", // Slightly darker blue border
+  },
+  {
+    bg: "bg-[#a52a2a]", // Bold brown-red
+    border: "border-[#8b2323]", // Darker brown-red border
+  },
+];
+
+
+
+const ProjectCard = ({ project, index }) => {
+  const style = cardStyles[index % cardStyles.length];
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 50 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.6, delay: index * 0.1 }}
+      className={`relative group w-full rounded-xl shadow-lg ${style.bg} ${style.border} border p-6 backdrop-blur-md`}
+    >
+      <div className="absolute inset-0 rounded-xl bg-white opacity-40 blur-xl"></div>
+      <div className="relative z-10">
+        <h2 className="text-2xl font-semibold text-gray-800 mb-3">{project.title}</h2>
+        <p className="text-gray-600 mb-4">{project.description}</p>
+        <div className="flex flex-wrap gap-2 mb-6">
+          {project.technologies.map((tech, idx) => (
+            <span
+              key={idx}
+              className="px-3 py-1 rounded-full bg-gray-100 text-gray-800 text-sm font-medium"
+            >
+              {tech}
+            </span>
+          ))}
+        </div>
+        <div className="flex gap-3">
+          {project.link && (
+            <motion.a
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.9 }}
+              href={project.link}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="p-3 rounded-full bg-gray-800 hover:bg-gray-900 transition-all"
+            >
+              <ExternalLink className="w-5 h-5 text-white" />
+            </motion.a>
+          )}
+          {project.github && (
+            <motion.a
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.9 }}
+              href={project.github}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="p-3 rounded-full bg-gray-200 hover:bg-gray-300 transition-all"
+            >
+              <Github className="w-5 h-5 text-gray-800" />
+            </motion.a>
+          )}
+        </div>
+      </div>
+    </motion.div>
+  );
+};
 
 export default function ProjectsPage() {
+  
+    const projects = [
+    {
+      title: "Harmony",
+      description: "A music-based social networking app that connects users through their musical tastes, featuring AI-powered music recommendations and collaborative playlists.",
+      technologies: ["React Native", "AI/ML", "NLP", "TensorFlow"],
+      link: "https://github.com/Vishnu-adi",
+      github: "https://github.com/Vishnu-adi"
+    },
+    {
+      title: "AnemiaSense",
+      description: "An AI-based mobile application that uses image processing and machine learning to detect anemia in patients through non-invasive methods.",
+      technologies: ["Bootstrap CSS", "TensorFlow", "Random Forest Classifier"],
+      link: "https://anemiasense.onrender.com/",
+      github: "https://github.com/Vishnu-adi/Anemia_Sense"
+    },
+    {
+      title: "Movie Recommendation",
+      description: "A personalized movie recommendation system using the MERN stack and machine learning algorithms to provide users with tailored suggestions.",
+      technologies: ["MongoDB", "Express", "React", "Node.js", "Python", "Machine Learning", "NLP"],
+      link: "https://your-live-demo.com",
+      github: "https://github.com/Vishnu-adi/"
+    },
+    {
+      title: "StockInsight",
+      description: "A comprehensive stock market information website providing users with real-time data and insights, featuring favorite stock tracking and historical data analysis.",
+      technologies: ["MERN Stack", "Finnhub API"],
+      link: "https://your-live-demo.com",
+      github: "https://github.com/yourusername/project"
+    },
+    {
+      title: "Flutter Expense Tracker",
+      description: "A cross-platform application to help users manage and track their expenses, featuring expense categorization, visual summaries, and report generation.",
+      technologies: ["Flutter", "Dart", "Hive"],
+      link: "https://your-live-demo.com",
+      github: "https://github.com/Vishnu-Adi/Expense_tracker"
+    },
+    {
+      title: "Personal Bookshelf",
+      description: "A digital bookshelf application that allows users to manage their reading list, discover new books, and track their reading progress.",
+      technologies: ["React", "Open Library API"],
+      link: "https://personal-bookshelf-hazel.vercel.app/",
+      github: "https://github.com/Vishnu-Adi/personal-bookshelf"
+    },
+  ];
+
+
   return (
-    <div className="max-w-6xl mx-auto px-6 py-12">
-      {/* Header Section */}
-      <div className="mb-12">
-        <h1 className="text-5xl font-bold mb-4">Projects</h1>
-        <p className="text-xl text-gray-600">A collection of my work and experiments</p>
-      </div>
-
-      {/* Featured Project */}
-      <div className="grid gap-6 mb-6">
-        <Link 
-          href="/projects/featured"
-          className="group relative block rounded-3xl bg-red-500 text-white p-8 md:p-12 overflow-hidden"
-        >
-          <div className="relative z-10">
-            <div className="flex justify-between items-start mb-8">
-              <div>
-                <h2 className="text-4xl font-bold mb-4">PHOTOBOARD</h2>
-                <p className="text-xl text-red-100 max-w-xl">
-                  A personal mood board application for storing and organizing creative inspiration
-                </p>
-              </div>
-              <ArrowUpRight className="w-8 h-8 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" />
-            </div>
-            <div className="flex gap-3">
-              <span className="px-4 py-1 bg-white/20 rounded-full text-sm">React</span>
-              <span className="px-4 py-1 bg-white/20 rounded-full text-sm">Next.js</span>
-              <span className="px-4 py-1 bg-white/20 rounded-full text-sm">MongoDB</span>
-            </div>
-          </div>
-          <div 
-            className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PHBhdHRlcm4gaWQ9ImdyaWQiIHdpZHRoPSI0MCIgaGVpZ2h0PSI0MCIgcGF0dGVyblVuaXRzPSJ1c2VyU3BhY2VPblVzZSI+PHBhdGggZD0iTSAwIDEwIEwgNDAgMTAgTSAxMCAwIEwgMTAgNDAgTSAwIDIwIEwgNDAgMjAgTSAyMCAwIEwgMjAgNDAgTSAwIDMwIEwgNDAgMzAgTSAzMCAwIEwgMzAgNDAiIGZpbGw9Im5vbmUiIHN0cm9rZT0iI2ZmZiIgb3BhY2l0eT0iMC4xIiBzdHJva2Utd2lkdGg9IjEiLz48L3BhdHRlcm4+PC9kZWZzPjxyZWN0IHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbGw9InVybCgjZ3JpZCkiLz48L3N2Zz4=')] opacity-50"
-          />
-        </Link>
-      </div>
-
-      {/* Project Grid */}
-      <div className="grid grid-cols-12 gap-6">
-        <Link 
-          href="/projects/compound"
-          className="col-span-12 md:col-span-8 group relative block rounded-3xl bg-[#111] text-white p-8 overflow-hidden"
-          style={{
-            backgroundImage: 'radial-gradient(circle at 10px 10px, rgba(255,255,255,0.05) 2px, transparent 0)',
-            backgroundSize: '20px 20px'
-          }}
-        >
-          <div className="flex justify-between items-start mb-8">
-            <div>
-              <h2 className="text-3xl font-bold mb-3">COMPOUND</h2>
-              <p className="text-gray-400 max-w-xl">
-                A habit tracker with github-like commit graph visualization
-              </p>
-            </div>
-            <ArrowUpRight className="w-6 h-6 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" />
-          </div>
-          <div className="flex gap-3">
-            <span className="px-3 py-1 bg-white/10 rounded-full text-sm">Vue.js</span>
-            <span className="px-3 py-1 bg-white/10 rounded-full text-sm">D3.js</span>
-          </div>
-        </Link>
-
-        <Link 
-          href="/projects/weather"
-          className="col-span-12 md:col-span-4 group relative block rounded-3xl bg-green-600 text-white p-8"
-          style={{
-            backgroundImage: `url("data:image/svg+xml,%3Csvg width='40' height='40' xmlns='http://www.w3.org/2000/svg'%3E%3Cdefs%3E%3Cpattern id='grid' width='40' height='40' patternUnits='userSpaceOnUse'%3E%3Cpath d='M 0 10 L 40 10 M 10 0 L 10 40 M 0 20 L 40 20 M 20 0 L 20 40 M 0 30 L 40 30 M 30 0 L 30 40' fill='none' stroke='%23fff' opacity='0.1' stroke-width='1'/%3E%3C/pattern%3E%3C/defs%3E%3Crect width='100%25' height='100%25' fill='url(%23grid)'/%3E%3C/svg%3E")`
-          }}
-        >
-          <div className="h-full flex flex-col justify-between">
-            <div>
-              <h2 className="text-2xl font-bold mb-3">Weather App</h2>
-              <p className="text-green-100">Real-time weather with beautiful visualizations</p>
-            </div>
-            <ArrowUpRight className="w-6 h-6 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" />
-          </div>
-        </Link>
-
-        <Link 
-          href="/projects/tasks"
-          className="col-span-6 md:col-span-6 group relative block rounded-3xl bg-yellow-400 p-8"
-        >
-          <div className="h-full flex flex-col justify-between">
-            <div>
-              <h2 className="text-2xl font-bold mb-3">Task Manager</h2>
-              <p className="text-yellow-900">Simple and efficient task management</p>
-            </div>
-            <ArrowUpRight className="w-6 h-6 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" />
-          </div>
-        </Link>
-
-        <Link 
-          href="/projects/dashboard"
-          className="col-span-6 md:col-span-6 group relative block rounded-3xl bg-purple-500 text-white p-8"
-        >
-          <div className="h-full flex flex-col justify-between">
-            <div>
-              <h2 className="text-2xl font-bold mb-3">Analytics Dashboard</h2>
-              <p className="text-purple-100">Complete analytics solution</p>
-            </div>
-            <ArrowUpRight className="w-6 h-6 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" />
-          </div>
-        </Link>
+    <div className="min-h-screen bg-gradient-to-b from-white to-gray-100 py-16 px-4 sm:px-6 lg:px-8">
+      <motion.div
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+        className="max-w-7xl mx-auto mb-12 text-center"
+      >
+        <h1 className="text-5xl font-extrabold mb-3 text-gray-800">Projects</h1>
+        <p className="text-lg text-gray-600">
+          Showcasing my work and creative endeavors
+        </p>
+      </motion.div>
+      <div className="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+        {projects.map((project, index) => (
+          <ProjectCard key={index} project={project} index={index} />
+        ))}
       </div>
     </div>
-  )
+  );
 }
 

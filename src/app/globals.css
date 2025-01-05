@@ -36,4 +36,91 @@
   }
 }
 
+/* Add these animations to your existing globals.css */
 
+@keyframes float {
+  0% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+  100% {
+    transform: translateY(0px);
+  }
+}
+
+.skill-card {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+.skill-card.in-view {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.skill-card span {
+  animation: fadeIn 0.5s ease-out forwards;
+  opacity: 0;
+}
+
+
+/* Custom styles for the Now page */
+.now-page {
+  max-width: 800px; /* Adjust based on your layout */
+  margin: 0 auto;
+  padding: 0 16px; 
+  cursor:none/* Add padding for responsiveness */
+}
+
+.custom-cursor {
+  width: 20px;
+  height: 20px;
+  border: 2px solid #f93957;
+  border-radius: 50%;
+  position: fixed;
+  pointer-events: none;
+  z-index: 9999;
+  transition: all 0.1s ease;
+  mix-blend-mode: difference;
+}
+
+@keyframes float {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+  100% { transform: translateY(0px); }
+}
+.list-none {
+  display: flex;
+  flex-direction: column;
+  gap: 12px; /* Space between list items */
+}
+.float-animation {
+  animation: float 3s ease-in-out infinite;
+}
+
+@keyframes paintbrush {
+  0% { background-position: 0% 50%; }
+  100% { background-position: 100% 50%; }
+}
+
+.paintbrush-highlight {
+  background: linear-gradient(90deg, #f93957, #ff9f0c, #f93957);
+  background-size: 200% 100%;
+  animation: paintbrush 4s linear infinite;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}

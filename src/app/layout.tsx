@@ -32,9 +32,9 @@ export default function RootLayout({
               
               <ul className="flex items-center space-x-8">
                 {[
+                  ['About', '/about'],  // Changed from '/now' to '/about'
                   ['Projects', '/projects'],
-                  ['About', '/about'],
-                  ['Contact', '/contact']
+                  ['Skills', '/skills']
                 ].map(([title, url]) => (
                   <li key={url}>
                     <Link

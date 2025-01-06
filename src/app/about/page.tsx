@@ -75,7 +75,7 @@ export default function NowPage() {
         transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
         className="text-xl mb-12 text-[#2C3E50] leading-relaxed"
       >
-        Hello! I'm Vishnu Adithya, currently in my third year (pre-final year) at VIT Vellore, pursuing a degree in Computer Science and Engineering. Here's what I'm up to these days:
+        Hello! I&apos;m Vishnu Adithya, currently in my third year (pre-final year) at VIT Vellore, pursuing a degree in Computer Science and Engineering. Here&apos;s what I&apos;m up to these days:
       </motion.p>
 
       <Section title="Academics and Learning">
@@ -107,7 +107,7 @@ export default function NowPage() {
           </li>
           <li className="flex items-start">
             <span className="text-[#f93957] mr-2">▹</span>
-            Recently, I've been working on a Machine Learning/Deep Learning project, aiming to explore Generative Adversarial Networks (GANs) and Natural Language Processing (NLP) for innovative use cases.
+            Recently, I&apos;ve been working on a Machine Learning/Deep Learning project, aiming to explore Generative Adversarial Networks (GANs) and Natural Language Processing (NLP) for innovative use cases.
           </li>
         </ul>
       </Section>

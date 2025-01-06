@@ -158,12 +158,12 @@
 //     </div>
 //   );
 // }
-
 "use client";
 
 import React from "react";
 import { motion } from "framer-motion";
 import { Github, ExternalLink } from "lucide-react";
+
 const cardStyles = [
   {
     bg: "bg-[#ff007f]", // Vibrant dark pink
@@ -191,9 +191,20 @@ const cardStyles = [
   },
 ];
 
+interface Project {
+  title: string;
+  description: string;
+  technologies: string[];
+  link?: string;
+  github?: string;
+}
 
+interface ProjectCardProps {
+  project: Project;
+  index: number;
+}
 
-const ProjectCard = ({ project, index }) => {
+const ProjectCard: React.FC<ProjectCardProps> = ({ project, index }) => {
   const style = cardStyles[index % cardStyles.length];
   return (
     <motion.div
@@ -248,8 +259,7 @@ const ProjectCard = ({ project, index }) => {
 };
 
 export default function ProjectsPage() {
-  
-    const projects = [
+  const projects: Project[] = [
     {
       title: "Harmony",
       description: "A music-based social networking app that connects users through their musical tastes, featuring AI-powered music recommendations and collaborative playlists.",
@@ -294,7 +304,6 @@ export default function ProjectsPage() {
     },
   ];
 
-
   return (
     <div className="min-h-screen bg-gradient-to-b from-white to-gray-100 py-16 px-4 sm:px-6 lg:px-8">
       <motion.div
@@ -315,4 +324,3 @@ export default function ProjectsPage() {
     </div>
   );
 }
-

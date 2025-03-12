@@ -8,7 +8,7 @@ import { cn } from "@/lib/utils";
 
 const SkillCategory: React.FC<{
   title: string;
-  icon: React.ReactNode;
+  icon: React.ReactElement<{ className?: string }>;
   skills: string[];
   index: number;
 }> = ({ title, icon, skills, index }) => {
@@ -30,7 +30,7 @@ const SkillCategory: React.FC<{
       {/* Icon Circle */}
       <div className="flex-shrink-0 w-32 h-32 rounded-full flex items-center justify-center bg-gradient-to-br from-primary/15 to-primary/5 border border-primary/20 shadow-xl">
         <div className="w-16 h-16 flex items-center justify-center text-primary">
-          {React.cloneElement(icon as React.ReactElement, { className: "w-14 h-14" })}
+          {React.cloneElement(icon, { className: "w-14 h-14" ,...icon.props})}
         </div>
       </div>
       

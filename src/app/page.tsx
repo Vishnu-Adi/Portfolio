@@ -1,3 +1,4 @@
+
 "use client"; // Marks this file as a Client Component
 import type { NextPage } from "next";
 import { Card } from "@/components/card";

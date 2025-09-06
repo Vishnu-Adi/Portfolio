@@ -1,18 +1,13 @@
 "use client"
 
 import { motion, useScroll, useTransform } from "framer-motion";
-import { useMemo, useRef } from "react";
+import { useRef } from "react";
 import {
   ArrowRight,
   Briefcase,
   CalendarDays,
   GraduationCap,
-  Sparkles,
-  Github,
-  Linkedin,
   Mail,
-  Phone,
-  Award,
   BookOpen,
 } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
@@ -104,12 +99,6 @@ const TimelineItem = ({
   </Card>
 );
 
-const Pill = ({ children }: { children: React.ReactNode }) => (
-  <span className="inline-flex items-center rounded-full border px-3 py-1 text-sm text-gray-700 bg-white/80 backdrop-blur-sm">
-    {children}
-  </span>
-);
-
 // --------------------
 // Page
 // --------------------
@@ -117,18 +106,6 @@ export default function AboutPage() {
   const rootRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({ target: rootRef, offset: ["start start", "end end"] });
   const scaleX = useTransform(scrollYProgress, [0, 1], [0, 1]);
-
-  const skills = useMemo(
-    () => ({
-      Languages: ["Python", "TypeScript", "JavaScript", "SQL"],
-      Frontend: ["React", "Next.js", "React Native", "Tailwind CSS", "shadcn/ui"],
-      Backend: ["Flask", "Node.js", "Express", "REST APIs"],
-      Data_Cloud: ["Power BI", "Firebase", "MySQL"],
-      Platforms: ["Salesforce (Apex, Flows, LWC)", "CI/CD"],
-      Practices: ["Testing & Observability", "Clean APIs", "Docs-first"],
-    }),
-    []
-  );
 
   return (
     <div ref={rootRef} className="relative min-h-screen bg-gray-50 py-28 px-4 sm:px-6 lg:px-8">
@@ -143,48 +120,32 @@ export default function AboutPage() {
       <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PHBhdHRlcm4gaWQ9ImdyaWQiIHdpZHRoPSI2MCIgaGVpZ2h0PSI2MCIgcGF0dGVyblVuaXRzPSJ1c2VyU3BhY2VPblVzZSI+PHBhdGggZD0iTSA2MCAwIEwgMCAwIDAgNjAiIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzE4MTgxOCIgb3BhY2l0eT0iMC4wMiIgc3Ryb2tlLXdpZHRoPSIxIi8+PC9wYXR0ZXJuPjwvZGVmcz48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAiIGZpbGw9InVybCgjZ3JpZCkiLz48L3N2Zz4=')] opacity-40 z-0" />
 
       <div className="relative z-10 max-w-6xl mx-auto">
-        {/* Hero */}
-        <motion.div initial={{ opacity: 0, y: -16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }} className="mb-16">
-          <div className="flex flex-col items-center text-center">
-            <div className="mb-6 relative">
-              <div className="h-24 w-24 rounded-2xl bg-gradient-to-br from-primary to-purple-500 text-white grid place-items-center shadow-md">
-                <span className="text-3xl font-bold">VA</span>
-              </div>
-            </div>
-            <h1 className="text-4xl md:text-6xl font-bold mb-4 bg-gradient-to-r from-primary to-purple-500 bg-clip-text text-transparent">
-              Vishnu Adithya
-            </h1>
-            <p className="text-lg md:text-xl text-gray-700 max-w-3xl">
-              Final‑year CSE (Business Systems) @ VIT Vellore — CGPA 9.29. I build reliable, developer‑first products with clean APIs, strong abstractions, and great DX.
-            </p>
-            <div className="mt-6 flex flex-wrap items-center justify-center gap-3">
-              <Button asChild size="sm" className="shadow-sm">
-                <a href="mailto:vishnuadithya7@gmail.com" aria-label="Email Vishnu"><Mail className="h-4 w-4 mr-1"/> Email</a>
-              </Button>
-              <Button asChild variant="secondary" size="sm" className="shadow-sm">
-                <a href="https://www.linkedin.com/in/vishnu-adithya-261477255" target="_blank" rel="noreferrer noopener"><Linkedin className="h-4 w-4 mr-1"/> LinkedIn</a>
-              </Button>
-              <Button asChild variant="outline" size="sm" className="shadow-sm">
-                <a href="https://github.com/Vishnu-Adi" target="_blank" rel="noreferrer noopener"><Github className="h-4 w-4 mr-1"/> GitHub</a>
-              </Button>
-              <Pill><Phone className="h-4 w-4 mr-1"/> +91 91763 76376</Pill>
-            </div>
-
-            {/* Quick stats */}
-            <div className="mt-8 grid grid-cols-2 sm:grid-cols-4 gap-3 w-full max-w-3xl">
-              {[{label: "CGPA", value: "9.29"}, {label: "Internships", value: "3"}, {label: "Programs", value: "1"}, {label: "Papers", value: "—"}].map((s, i) => (
-                <Card key={i} className="border-none shadow-sm">
-                  <CardContent className="p-4 text-center">
-                    <div className="text-2xl font-bold">{s.value}</div>
-                    <div className="text-xs text-gray-500">{s.label}</div>
-                  </CardContent>
-                </Card>
-              ))}
-            </div>
+        {/* --- ABOUT ME (Top) --- */}
+        <motion.div
+          initial={{ opacity: 0, y: -16 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          className="mb-16 text-center"
+        >
+          <h1 className="text-4xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-primary to-purple-500 bg-clip-text text-transparent">
+            About Me
+          </h1>
+          <p className="text-lg md:text-xl text-gray-700 max-w-3xl mx-auto leading-relaxed">
+            I’m a final‑year CSE (Business Systems) student at VIT Vellore (CGPA 9.29) who loves turning ambiguous problems into small, reliable systems.
+            I care about clean interfaces, safety in deployment, and docs that make adoption effortless. When something breaks, I enjoy walking the stack,
+            instrumenting first, and letting data—not hunches—drive fixes. Outside code, I tinker with dev tools and read about behavior and learning.
+          </p>
+          <div className="mt-8 flex items-center justify-center">
+            <Button asChild size="sm" className="shadow-sm">
+              <a href="mailto:vishnuadithya7@gmail.com" aria-label="Email">
+                <Mail className="h-4 w-4 mr-2" />
+                Email
+              </a>
+            </Button>
           </div>
         </motion.div>
 
-        {/* Experience - Internships */}
+        {/* --- INTERNSHIPS --- */}
         <Section title="Internships" icon={<Briefcase className="w-6 h-6"/>} colorClass="from-primary to-purple-500">
           <TimelineItem
             heading="BNY Mellon — Salesforce (BA + Developer) Intern"
@@ -193,7 +154,7 @@ export default function AboutPage() {
             bullets={[
               "Analyzed requirements and shipped Salesforce automations; improved resolution/ops efficiency by ~30%.",
               "Planned & executed a zero‑downtime destructive deployment: dependency matrix, rollback plan, and CI/CD scripts.",
-              "Built custom objects, Apex triggers, and Lightning flows; collaborated across product/engineering."
+              "Built custom objects, Apex triggers, and Lightning flows; collaborated across product/engineering.",
             ]}
             tags={["Salesforce", "Apex", "Lightning", "CI/CD", "Reliability"]}
             highlight
@@ -206,7 +167,7 @@ export default function AboutPage() {
             bullets={[
               "Developed Flask APIs and backend for a client‑facing web app.",
               "Automated Python ETL pipelines; created Power BI dashboards used in client meetings.",
-              "Worked with Power Automate and MySQL for data workflows."
+              "Worked with Power Automate and MySQL for data workflows.",
             ]}
             tags={["Flask", "Python", "Power BI", "Power Automate", "MySQL"]}
           />
@@ -217,87 +178,53 @@ export default function AboutPage() {
             period="Jul 2024"
             bullets={[
               "Built nereustechnologies.com with React, Tailwind, and TypeScript.",
-              "Contributed to a cross‑platform React Native app; integrated Firebase for multi‑platform data sync."
+              "Contributed to a cross‑platform React Native app; integrated Firebase for multi‑platform data sync.",
             ]}
             tags={["React", "Tailwind", "TypeScript", "React Native", "Firebase"]}
           />
         </Section>
 
-        {/* Research */}
-        <Section title="Research & Programs" icon={<BookOpen className="w-6 h-6"/>} colorClass="from-emerald-500 to-green-400">
+        {/* --- RESEARCH & PUBLICATIONS --- */}
+        <Section title="Research & Publications" icon={<BookOpen className="w-6 h-6"/>} colorClass="from-emerald-500 to-green-400">
+          <TimelineItem
+            heading="Cross‑Domain Transfer Learning for WSN Anomaly Detection"
+            subheading="PLOS ONE — Submitted"
+            period="2025"
+            bullets={[
+              "Authored and submitted a research paper detailing a novel anomaly‑detection framework to the PLOS ONE journal.",
+              "Developed a hybrid Isolation Forest/LSTM model to address cross‑domain transfer learning challenges in IoT/WSN networks.",
+            ]}
+            tags={["PLOS ONE (submitted)", "Isolation Forest", "LSTM", "IoT", "Transfer Learning"]}
+            highlight
+          />
+
+          <TimelineItem
+            heading="HPE CTY Program — NLP Lead"
+            subheading="Query‑classification system (RoBERTa + ensemble)"
+            period="2024–2025"
+            bullets={[
+              "Led model design and evaluation; reached ~97.3% classification accuracy.",
+              "Built an ensemble around RoBERTa; documented metrics and instrumentation.",
+              "Focused on clarity, safety, and reproducibility with well‑structured experiments.",
+            ]}
+            tags={["NLP", "RoBERTa", "Ensembles", "Evaluation"]}
+          />
+        </Section>
+
+        {/* --- EDUCATION ONLY (no skills) --- */}
+        <Section title="Education" icon={<GraduationCap className="w-6 h-6"/>} colorClass="from-blue-500 to-cyan-400">
           <Card className="border-none shadow-lg">
             <CardContent className="p-6">
-              <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-2">
+              <div className="flex items-start justify-between">
                 <div>
-                  <h3 className="text-xl font-semibold">HPE CTY Program — NLP Lead</h3>
-                  <p className="text-gray-600">Query‑classification system (RoBERTa + ensemble)</p>
+                  <h3 className="text-xl font-semibold">VIT Vellore</h3>
+                  <p className="text-gray-600">B.Tech — Computer Science & Engineering (Business Systems)</p>
                 </div>
-                <p className="text-sm text-gray-500 flex items-center"><CalendarDays className="h-4 w-4 mr-1"/>2024–2025</p>
+                <div className="text-right">
+                  <div className="text-sm text-gray-500">Final Year</div>
+                  <div className="text-sm font-semibold">CGPA 9.29</div>
+                </div>
               </div>
-              <ul className="mt-4 space-y-2 text-gray-700">
-                <li className="flex items-start"><ArrowRight className="h-5 w-5 text-emerald-600 mr-2 mt-0.5"/>Led model design and evaluation; reached ~97.3% classification accuracy.</li>
-                <li className="flex items-start"><ArrowRight className="h-5 w-5 text-emerald-600 mr-2 mt-0.5"/>Built an ensemble around RoBERTa; documented metrics and instrumentation.</li>
-                <li className="flex items-start"><ArrowRight className="h-5 w-5 text-emerald-600 mr-2 mt-0.5"/>Focused on clarity, safety, and reproducibility with well‑structured experiments.</li>
-              </ul>
-              <div className="mt-4 flex flex-wrap gap-2">
-                {["NLP", "RoBERTa", "Ensembles", "Evaluation"].map((t) => (
-                  <Badge key={t} variant="secondary" className="bg-gray-100 text-gray-800">{t}</Badge>
-                ))}
-              </div>
-            </CardContent>
-          </Card>
-        </Section>
-
-        {/* Education & Skills */}
-        <Section title="Education & Skills" icon={<GraduationCap className="w-6 h-6"/>} colorClass="from-blue-500 to-cyan-400">
-          <div className="grid md:grid-cols-2 gap-6">
-            <Card className="border-none shadow-lg">
-              <CardContent className="p-6">
-                <div className="flex items-start justify-between">
-                  <div>
-                    <h3 className="text-xl font-semibold">VIT Vellore</h3>
-                    <p className="text-gray-600">B.Tech — Computer Science & Engineering (Business Systems)</p>
-                  </div>
-                  <div className="text-right">
-                    <div className="text-sm text-gray-500">Final Year</div>
-                    <div className="text-sm font-semibold">CGPA 9.29</div>
-                  </div>
-                </div>
-                <div className="mt-4 grid sm:grid-cols-2 gap-3">
-                  {Object.entries(skills).map(([k, vals]) => (
-                    <div key={k}>
-                      <div className="text-sm font-semibold text-gray-700 mb-2">{k.replace("_", " & ")}</div>
-                      <div className="flex flex-wrap gap-2">
-                        {vals.map((v) => (
-                          <Badge key={v} variant="outline" className="text-gray-700">{v}</Badge>
-                        ))}
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </CardContent>
-            </Card>
-
-            <Card className="border-none shadow-lg">
-              <CardContent className="p-6">
-                <div className="flex items-center gap-2 mb-2"><Award className="h-5 w-5"/><h3 className="text-xl font-semibold">What I optimize for</h3></div>
-                <ul className="space-y-2 text-gray-700">
-                  <li className="flex items-start"><Sparkles className="h-5 w-5 text-blue-600 mr-2 mt-0.5"/>Developer Experience: clean APIs, great docs, and fast onboarding.</li>
-                  <li className="flex items-start"><Sparkles className="h-5 w-5 text-blue-600 mr-2 mt-0.5"/>Reliability: tests, observability, and safe deployments.</li>
-                  <li className="flex items-start"><Sparkles className="h-5 w-5 text-blue-600 mr-2 mt-0.5"/>Learning velocity: new stacks, clear interfaces, and measurable impact.</li>
-                </ul>
-              </CardContent>
-            </Card>
-          </div>
-        </Section>
-
-        {/* About me (personal) */}
-        <Section title="About Me" icon={<Award className="w-6 h-6"/>} colorClass="from-violet-500 to-purple-500">
-          <Card className="border-none shadow-lg">
-            <CardContent className="p-6">
-              <p className="text-gray-700 leading-relaxed">
-                I like turning ambiguous problems into small, composable systems and writing the docs and tests that make them easy to adopt. I’m comfortable reading unfamiliar APIs, debugging tricky edge‑cases, and collaborating with product & customers. Outside of work, I enjoy exploring new dev tools, fine‑tuning my editor/keyboard setup, and reading about behavioral science and languages.
-              </p>
             </CardContent>
           </Card>
         </Section>

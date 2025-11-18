@@ -1,188 +1,164 @@
 "use client";
 
-import React, { useRef } from "react";
-import { motion, useScroll, useInView } from "framer-motion";
-import { Github, ExternalLink } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
-import { Card } from "@/components/ui/card";
-import { cn } from "@/lib/utils";
+import { motion } from "framer-motion";
+import { ArrowUpRight, Github } from "lucide-react";
+import Link from "next/link";
 
-interface Project {
-  title: string;
-  description: string;
-  technologies: string[];
-  link?: string;
-  github?: string;
-}
-
-const ProjectCard: React.FC<{
-  project: Project;
-  index: number;
-}> = ({ project, index }) => {
-  const ref = useRef<HTMLDivElement>(null);
-  const isInView = useInView(ref, { once: true, margin: "-50px" });
-  
-  // Cycle through neo colors
-  const colors = [
-    "bg-neo-yellow",
-    "bg-neo-pink",
-    "bg-neo-blue",
-    "bg-neo-green",
-    "bg-neo-white",
-  ];
-  const bgColor = colors[index % colors.length];
-
-  return (
-    <motion.div
-      ref={ref}
-      initial={{ opacity: 0, y: 50, rotate: -2 }}
-      animate={isInView ? { opacity: 1, y: 0, rotate: 0 } : { opacity: 0, y: 50, rotate: -2 }}
-      whileHover={{ rotate: index % 2 === 0 ? 1 : -1, scale: 1.02 }}
-      transition={{ duration: 0.5, type: "spring", stiffness: 100 }}
-      className="h-full"
-    >
-      <Card className={cn("h-full flex flex-col border-4 border-neo-black shadow-neo", bgColor)}>
-        {/* Mac-like Window Header */}
-        <div className="border-b-4 border-neo-black bg-white p-3 flex items-center gap-2">
-          <div className="w-4 h-4 rounded-full border-2 border-neo-black bg-neo-pink" />
-          <div className="w-4 h-4 rounded-full border-2 border-neo-black bg-neo-yellow" />
-          <div className="w-4 h-4 rounded-full border-2 border-neo-black bg-neo-green" />
-        </div>
-        
-        <div className="p-6 md:p-8 flex-grow flex flex-col">
-          <h2 className="text-4xl font-black mb-4 uppercase tracking-tight text-neo-black">
-            {project.title}
-          </h2>
-          
-          <p className="text-lg font-medium text-neo-black/80 mb-6 flex-grow leading-relaxed">
-            {project.description}
-          </p>
-          
-          <div className="flex flex-wrap gap-2 mb-8">
-            {project.technologies.map((tech, idx) => (
-              <Badge 
-                key={idx} 
-                variant="outline" 
-                className="border-2 border-neo-black bg-white text-neo-black font-bold px-3 py-1 text-sm"
-              >
-                {tech}
-              </Badge>
-            ))}
-          </div>
-          
-          <div className="flex gap-4 mt-auto">
-            {project.link && (
-              <Button asChild className="bg-neo-black text-neo-white hover:bg-gray-800 shadow-neo border-2 border-transparent">
-                <a href={project.link} target="_blank" rel="noopener noreferrer">
-                  <span>Visit</span>
-                  <ExternalLink className="ml-2 h-4 w-4" />
-                </a>
-              </Button>
-            )}
-            
-            {project.github && (
-              <Button asChild variant="outline" className="bg-white border-2 border-neo-black shadow-neo hover:bg-gray-100">
-                <a href={project.github} target="_blank" rel="noopener noreferrer">
-                  <Github className="mr-2 h-4 w-4" />
-                  <span>Code</span>
-                </a>
-              </Button>
-            )}
-          </div>
-        </div>
-      </Card>
-    </motion.div>
-  );
-};
+const projects = [
+  {
+    title: "VeriScope",
+    description: "Unbiased AI News Aggregator. Developed a platform using Python and Next.js to analyze and neutralize media bias. Implemented algorithms to provide balanced information and designed a responsive UI with data visualizations for bias scores.",
+    tags: ["Next.js", "Python", "AI/ML", "NLP"],
+    link: "https://github.com/Vishnu-Adi/VeriScope",
+    github: "https://github.com/Vishnu-Adi/VeriScope",
+    year: "2025"
+  },
+  {
+    title: "LexiFlow",
+    description: "AI Reading Coach Chrome Extension. Engineered a client-side tool using NLP models (XGBoost/BERT) to analyze and simplify complex web text. Integrated eye-tracking for dynamic UX and Text-to-Speech for accessibility.",
+    tags: ["Chrome Ext", "NLP", "BERT", "XGBoost"],
+    link: "https://github.com/Vishnu-Adi/LexiFlow",
+    github: "https://github.com/Vishnu-Adi/LexiFlow",
+    year: "2025"
+  },
+  {
+    title: "Privacy-Preserving Micropayment",
+    description: "A two-party micropayment channel prototype that keeps per-update payment amounts private using additively homomorphic commitments. Combines Python FastAPI backend with Next.js 14 frontend.",
+    tags: ["Next.js", "FastAPI", "Cryptography", "Python"],
+    link: "https://github.com/Vishnu-Adi/homomorphic-hash-micropayment-channel.git",
+    github: "https://github.com/Vishnu-Adi/homomorphic-hash-micropayment-channel.git",
+    year: "2025"
+  },
+  {
+    title: "RFID Optimization",
+    description: "Optimizing the placement of RFID tags within a grid-based environment to maximize coverage while minimizing deployment costs using Genetic Algorithm (GA) and Particle Swarm Optimization (PSO).",
+    tags: ["Genetic Algo", "PSO", "Optimization", "Python"],
+    link: "https://github.com/Vishnu-Adi/RFID_Project.git",
+    github: "https://github.com/Vishnu-Adi/RFID_Project.git",
+    year: "2025"
+  },
+  {
+    title: "Harmony",
+    description: "Music-based social networking app connecting users through musical tastes. Features AI-powered music recommendations and collaborative playlists to foster community.",
+    tags: ["React Native", "AI/ML", "NLP", "TensorFlow"],
+    link: "https://github.com/Vishnu-Adi/Harmony",
+    github: "https://github.com/Vishnu-Adi/Harmony",
+    year: "2024"
+  },
+  {
+    title: "StockInsight",
+    description: "Real-Time Stock Market Dashboard. A comprehensive full-stack analysis platform providing real-time financial data, portfolio management, custom watchlists, and technical indicators like RSI and Moving Averages.",
+    tags: ["MERN Stack", "Finnhub API", "Data Viz"],
+    link: "https://github.com/Vishnu-Adi/Stock_Market_app",
+    github: "https://github.com/Vishnu-Adi/Stock_Market_app",
+    year: "2024"
+  },
+  {
+    title: "AnemiaSense",
+    description: "AI-based mobile application using image processing and machine learning (Random Forest) to detect anemia in patients through non-invasive methods.",
+    tags: ["Bootstrap", "TensorFlow", "Random Forest"],
+    link: "https://anemiasense.onrender.com/",
+    github: "https://github.com/Vishnu-Adi/Anemia_Sense",
+    year: "2024"
+  },
+  {
+    title: "Expense Tracker",
+    description: "Cross-platform application for managing personal finances. Features expense categorization, visual summaries, report generation, and local storage using Hive.",
+    tags: ["Flutter", "Dart", "Hive"],
+    link: "https://github.com/Vishnu-Adi/Expense_tracker",
+    github: "https://github.com/Vishnu-Adi/Expense_tracker",
+    year: "2023"
+  },
+  {
+    title: "Movie Recs",
+    description: "Personalized movie recommendation system using the MERN stack and machine learning algorithms to provide tailored suggestions based on user preferences.",
+    tags: ["MERN", "Python", "ML", "NLP"],
+    link: "https://github.com/Vishnu-Adi/Movie_recommendation",
+    github: "https://github.com/Vishnu-Adi/Movie_recommendation",
+    year: "2023"
+  },
+  {
+    title: "Personal Bookshelf",
+    description: "A digital bookshelf application that allows users to manage their reading list, discover new books, and track their reading progress.",
+    tags: ["React", "Open Library API"],
+    link: "https://personal-bookshelf-hazel.vercel.app/",
+    github: "https://github.com/Vishnu-Adi/personal-bookshelf.git",
+    year: "2023"
+  }
+];
 
 export default function ProjectsPage() {
-  const ref = useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll({
-    target: ref,
-    offset: ["start start", "end end"]
-  });
-  
-  const projects: Project[] = [
-    {
-      title: "Harmony",
-      description: "A music-based social networking app that connects users through their musical tastes, featuring AI-powered music recommendations and collaborative playlists.",
-      technologies: ["React Native", "AI/ML", "NLP", "TensorFlow"],
-      link: "https://github.com/Vishnu-adi",
-      github: "https://github.com/Vishnu-adi"
-    },
-    {
-      title: "AnemiaSense",
-      description: "An AI-based mobile application that uses image processing and machine learning to detect anemia in patients through non-invasive methods.",
-      technologies: ["Bootstrap CSS", "TensorFlow", "Random Forest"],
-      link: "https://anemiasense.onrender.com/",
-      github: "https://github.com/Vishnu-adi/Anemia_Sense"
-    },
-    {
-      title: "Movie Recs",
-      description: "A personalized movie recommendation system using the MERN stack and machine learning algorithms to provide users with tailored suggestions.",
-      technologies: ["MERN Stack", "Python", "ML", "NLP"],
-      link: "https://your-live-demo.com",
-      github: "https://github.com/Vishnu-adi/"
-    },
-    {
-      title: "StockInsight",
-      description: "A comprehensive stock market information website providing users with real-time data and insights, featuring favorite stock tracking and historical data analysis.",
-      technologies: ["MERN Stack", "Finnhub API"],
-      link: "https://your-live-demo.com",
-      github: "https://github.com/yourusername/project"
-    },
-    {
-      title: "Expense Tracker",
-      description: "A cross-platform application to help users manage and track their expenses, featuring expense categorization, visual summaries, and report generation.",
-      technologies: ["Flutter", "Dart", "Hive"],
-      link: "https://your-live-demo.com",
-      github: "https://github.com/Vishnu-Adi/Expense_tracker"
-    },
-    {
-      title: "My Bookshelf",
-      description: "A digital bookshelf application that allows users to manage their reading list, discover new books, and track their reading progress.",
-      technologies: ["React", "Open Library API"],
-      link: "https://personal-bookshelf-hazel.vercel.app/",
-      github: "https://github.com/Vishnu-Adi/personal-bookshelf"
-    },
-  ];
-
   return (
-    <div ref={ref} className="relative min-h-screen py-20 px-4 sm:px-6 lg:px-8 bg-neo-white">
-      
-      {/* Header */}
-      <motion.div
-        initial={{ opacity: 0, y: -20 }}
+    <div className="min-h-screen pt-12 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto pb-20">
+      <motion.header 
+        initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8, ease: "easeOut" }}
-        className="relative z-10 max-w-7xl mx-auto mb-20 text-center"
+        className="mb-20 border-b-2 border-black dark:border-white pb-8"
       >
-        <Badge className="mb-6 text-xl px-6 py-2 bg-neo-black text-neo-white hover:bg-neo-black">PORTFOLIO</Badge>
-        <h1 className="text-7xl md:text-9xl font-black mb-6 text-neo-black uppercase tracking-tighter">
-          Projects
+        <h1 className="text-6xl md:text-8xl font-black tracking-tighter mb-4">
+          WORK
+          <span className="text-red-500">.</span>
         </h1>
-        <p className="text-2xl font-bold text-neo-black max-w-3xl mx-auto border-b-4 border-neo-pink pb-4 inline-block">
-          Stuff I've built. Some serious, some just for fun.
+        <p className="text-xl max-w-2xl font-medium text-zinc-600 dark:text-zinc-400">
+          Selected projects and experiments.
         </p>
-      </motion.div>
-      
-      {/* Projects Grid */}
-      <div className="relative z-10 max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-10">
+      </motion.header>
+
+      <div className="flex flex-col">
         {projects.map((project, index) => (
-          <ProjectCard 
-            key={index} 
-            project={project} 
-            index={index}
-          />
+          <motion.article 
+            key={index}
+            initial={{ opacity: 0, y: 50 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.5, delay: index * 0.1 }}
+            className="group relative border-b border-zinc-200 dark:border-zinc-800 py-12 md:py-20 transition-colors hover:bg-zinc-50 dark:hover:bg-zinc-900/30"
+          >
+            <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-start">
+              <div className="md:col-span-2 font-mono text-sm text-zinc-500 pt-2">
+                {project.year}
+              </div>
+              
+              <div className="md:col-span-7">
+                <h2 className="text-3xl md:text-4xl font-bold mb-4 group-hover:text-red-500 transition-colors">
+                  {project.title}
+                </h2>
+                <p className="text-lg text-zinc-600 dark:text-zinc-400 mb-8 max-w-xl leading-relaxed">
+                  {project.description}
+                </p>
+                <div className="flex flex-wrap gap-2">
+                  {project.tags.map(tag => (
+                    <span key={tag} className="px-3 py-1 border border-black dark:border-white rounded-full text-xs font-mono uppercase tracking-wider">
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+              </div>
+
+              <div className="md:col-span-3 flex md:justify-end gap-4 pt-2">
+                {project.github && (
+                  <Link 
+                    href={project.github}
+                    target="_blank"
+                    className="p-3 rounded-full border border-transparent hover:border-black dark:hover:border-white transition-all hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black"
+                  >
+                    <Github className="w-6 h-6" />
+                  </Link>
+                )}
+                {project.link && project.link !== "#" && (
+                  <Link 
+                    href={project.link}
+                    target="_blank"
+                    className="p-3 rounded-full border border-black dark:border-white bg-black text-white dark:bg-white dark:text-black hover:scale-110 transition-transform"
+                  >
+                    <ArrowUpRight className="w-6 h-6" />
+                  </Link>
+                )}
+              </div>
+            </div>
+          </motion.article>
         ))}
       </div>
-      
-      {/* Scroll progress bar */}
-      <motion.div 
-        className="fixed top-0 left-0 right-0 h-2 bg-neo-black z-50 origin-left"
-        style={{ scaleX: scrollYProgress }}
-      />
     </div>
   );
 }

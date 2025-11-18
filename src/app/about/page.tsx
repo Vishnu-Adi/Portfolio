@@ -9,238 +9,194 @@ import {
   GraduationCap,
   Mail,
   BookOpen,
+  Download,
+  MapPin,
 } from "lucide-react";
-import { Card, CardContent } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
-import { cn } from "@/lib/utils";
 
 // --------------------
-// Mini UI building blocks
+// Components
 // --------------------
-const Section = ({
-  title,
-  icon,
-  children,
-  colorClass = "bg-neo-yellow",
-}: {
-  title: string;
-  icon: React.ReactNode;
-  children: React.ReactNode;
-  colorClass?: string;
-}) => (
-  <div className="mb-24 relative">
-    <div className="flex items-center mb-8">
-      <div
-        className={cn(
-          "p-4 mr-4 border-2 border-neo-black shadow-neo",
-          colorClass
-        )}
-      >
-        {icon}
-      </div>
-      <h2
-        className="text-4xl md:text-5xl font-black uppercase tracking-tight text-neo-black"
-      >
-        {title}
-      </h2>
-    </div>
-    <div className="pl-8 border-l-4 border-neo-black ml-6">
-      {children}
-    </div>
+const SectionHeader = ({ title, number }: { title: string; number: string }) => (
+  <div className="flex items-baseline gap-4 mb-12 border-b-2 border-black dark:border-white pb-4">
+    <span className="font-mono text-red-500 text-sm font-bold">{number}</span>
+    <h2 className="text-4xl md:text-5xl font-black uppercase tracking-tighter">
+      {title}
+    </h2>
   </div>
 );
 
-const TimelineItem = ({
-  heading,
-  subheading,
+const ExperienceItem = ({
+  role,
+  company,
   period,
-  bullets,
-  tags,
-  highlight = false,
-  highlightColor = "bg-neo-white"
+  description,
+  tech,
 }: {
-  heading: string;
-  subheading: string;
+  role: string;
+  company: string;
   period: string;
-  bullets: string[];
-  tags?: string[];
-  highlight?: boolean;
-  highlightColor?: string;
+  description: string[];
+  tech: string[];
 }) => (
-  <div className="relative mb-10 ml-4">
-      <div className="absolute -left-[46px] top-6 w-5 h-5 bg-neo-black border-2 border-neo-white" />
-      
-      <Card
-        className={cn(
-          "overflow-hidden transition-all duration-300",
-          highlight ? highlightColor : "bg-white"
-        )}
-      >
-        <CardContent className="p-6 md:p-8">
-          <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-4 mb-6">
-            <div>
-              <h3 className="text-2xl font-bold leading-tight">{heading}</h3>
-              <p className="text-lg font-medium text-gray-700 mt-1">{subheading}</p>
-            </div>
-            <div className="flex items-center px-3 py-1 bg-neo-black text-neo-white font-mono text-sm font-bold whitespace-nowrap border-2 border-transparent">
-                <CalendarDays className="h-4 w-4 mr-2"/>{period}
-            </div>
-          </div>
-          
-          <ul className="space-y-3 text-gray-800 font-medium">
-            {bullets.map((b, i) => (
-              <li key={i} className="flex items-start">
-                <ArrowRight className="h-5 w-5 text-neo-black mr-2 mt-0.5 flex-shrink-0 stroke-[3px]"/>
-                {b}
-              </li>
-            ))}
-          </ul>
-          
-          {tags && tags.length > 0 && (
-            <div className="flex flex-wrap gap-2 mt-6 pt-6 border-t-2 border-neo-black/10">
-              {tags.map((t, i) => (
-                <Badge key={i} variant="neo" className="hover:scale-105 transition-transform cursor-default">
-                    {t}
-                </Badge>
-              ))}
-            </div>
-          )}
-        </CardContent>
-      </Card>
+  <div className="group relative pl-8 border-l border-zinc-300 dark:border-zinc-700 last:border-0 pb-12 last:pb-0">
+    <div className="absolute -left-[5px] top-2 w-2.5 h-2.5 bg-black dark:bg-white rounded-full group-hover:scale-150 transition-transform duration-300" />
+    
+    <div className="flex flex-col sm:flex-row sm:items-baseline sm:justify-between gap-2 mb-4">
+      <h3 className="text-2xl font-bold">{role}</h3>
+      <span className="font-mono text-sm text-zinc-500">{period}</span>
+    </div>
+    
+    <h4 className="text-xl font-medium text-zinc-600 dark:text-zinc-400 mb-6">{company}</h4>
+    
+    <ul className="space-y-3 mb-6">
+      {description.map((item, i) => (
+        <li key={i} className="flex items-start text-zinc-700 dark:text-zinc-300 leading-relaxed">
+          <ArrowRight className="w-4 h-4 mr-3 mt-1.5 text-red-500 flex-shrink-0" />
+          {item}
+        </li>
+      ))}
+    </ul>
+
+    <div className="flex flex-wrap gap-2">
+      {tech.map((t) => (
+        <span key={t} className="px-2 py-1 bg-zinc-100 dark:bg-zinc-800 text-xs font-mono uppercase tracking-wide">
+          {t}
+        </span>
+      ))}
+    </div>
   </div>
 );
 
-// --------------------
-// Page
-// --------------------
 export default function AboutPage() {
-  const rootRef = useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll({ target: rootRef, offset: ["start start", "end end"] });
-  const scaleX = useTransform(scrollYProgress, [0, 1], [0, 1]);
-
+  const containerRef = useRef(null);
+  
   return (
-    <div ref={rootRef} className="relative min-h-screen py-20 px-4 sm:px-6 lg:px-8 overflow-x-hidden">
-
-      <div className="relative z-10 max-w-5xl mx-auto">
-        {/* --- ABOUT ME (Top) --- */}
-        <motion.div
-          initial={{ opacity: 0, y: 50 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          className="mb-20 text-center"
-        >
-          <Badge className="mb-4 text-lg px-4 py-1 bg-neo-black text-neo-white hover:bg-neo-black">PROFILE</Badge>
-          <h1 className="text-6xl md:text-8xl font-black mb-8 uppercase tracking-tighter">
-            About Me
-          </h1>
-          <Card className="bg-neo-yellow p-8 md:p-12 rotate-1 border-4">
-             <p className="text-xl md:text-2xl font-bold leading-relaxed text-left">
-                I’m a final‑year CSE (Business Systems) student at VIT Vellore (CGPA 9.29) who loves turning ambiguous problems into small, reliable systems.
-                I care about clean interfaces, safety in deployment, and docs that make adoption effortless. When something breaks, I enjoy walking the stack,
-                instrumenting first, and letting data—not hunches—drive fixes.
-              </p>
-          </Card>
-          
-          <div className="mt-12 flex items-center justify-center">
-            <Button asChild size="lg" className="text-lg h-14 px-8 bg-neo-blue text-white border-2 border-neo-black shadow-neo hover:shadow-none hover:translate-x-[4px] hover:translate-y-[4px] hover:bg-neo-blue">
-              <a href="mailto:vishnuadithya7@gmail.com" aria-label="Email">
-                <Mail className="h-6 w-6 mr-3" />
-                Get in Touch
-              </a>
-            </Button>
+    <div ref={containerRef} className="min-h-screen pt-12 px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto pb-24">
+      
+      {/* Hero Bio */}
+      <section className="mb-32">
+        <h1 className="text-7xl md:text-9xl font-black tracking-tighter mb-12 leading-[0.8]">
+          ABOUT
+          <span className="text-red-500">.</span>
+        </h1>
+        
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-12">
+          <div className="md:col-span-8 text-xl md:text-2xl font-medium leading-relaxed text-zinc-800 dark:text-zinc-200 space-y-8">
+            <p>
+              I’m a final‑year CSE (Business Systems) student at <span className="font-bold text-black dark:text-white">VIT Vellore</span> (CGPA 9.29) who loves turning ambiguous problems into small, reliable systems.
+            </p>
+            <p>
+              I care about clean interfaces, safety in deployment, and docs that make adoption effortless. When something breaks, I enjoy walking the stack, instrumenting first, and letting data—not hunches—drive fixes.
+            </p>
           </div>
-        </motion.div>
+          
+          <div className="md:col-span-4 flex flex-col gap-6 font-mono text-sm">
+            <div className="flex items-center gap-3">
+              <MapPin className="w-4 h-4 text-red-500" />
+              <span>Vellore, India</span>
+            </div>
+            <div className="flex items-center gap-3">
+              <Mail className="w-4 h-4 text-red-500" />
+              <a href="mailto:vishnuadithya7@gmail.com" className="hover:text-red-500 transition-colors">vishnuadithya7@gmail.com</a>
+            </div>
+            <a 
+              href="/resume.pdf" // Update with actual resume path if available
+              className="inline-flex items-center justify-center gap-2 bg-black dark:bg-white text-white dark:text-black py-3 px-4 font-bold hover:bg-red-600 hover:text-white dark:hover:bg-red-600 dark:hover:text-white transition-all"
+            >
+              <Download className="w-4 h-4" />
+              DOWNLOAD CV
+            </a>
+          </div>
+        </div>
+      </section>
 
-        {/* --- INTERNSHIPS --- */}
-        <Section title="Experience" icon={<Briefcase className="w-8 h-8 text-neo-black"/>} colorClass="bg-neo-pink">
-          <TimelineItem
-            heading="BNY Mellon — Salesforce (BA + Developer) Intern"
-            subheading="Enterprise automations & platform reliability"
+      {/* Experience */}
+      <section className="mb-32">
+        <SectionHeader title="Experience" number="01" />
+        <div className="space-y-12">
+          <ExperienceItem
+            role="Salesforce Intern (BA + Dev)"
+            company="BNY Mellon"
             period="Summer 2025"
-            bullets={[
+            description={[
               "Analyzed requirements and shipped Salesforce automations; improved resolution/ops efficiency by ~30%.",
               "Planned & executed a zero‑downtime destructive deployment: dependency matrix, rollback plan, and CI/CD scripts.",
-              "Built custom objects, Apex triggers, and Lightning flows; collaborated across product/engineering.",
+              "Built custom objects, Apex triggers, and Lightning flows; collaborated across product/engineering."
             ]}
-            tags={["Salesforce", "Apex", "Lightning", "CI/CD", "Reliability"]}
-            highlight
-            highlightColor="bg-neo-white"
+            tech={["Salesforce", "Apex", "Lightning", "CI/CD", "Reliability"]}
           />
-
-          <TimelineItem
-            heading="SRM Technologies — Software Intern"
-            subheading="Flask backend • Data automation • Client reporting"
+          
+          <ExperienceItem
+            role="Software Intern"
+            company="SRM Technologies"
             period="Jun–Jul 2024"
-            bullets={[
+            description={[
               "Developed Flask APIs and backend for a client‑facing web app.",
               "Automated Python ETL pipelines; created Power BI dashboards used in client meetings.",
-              "Worked with Power Automate and MySQL for data workflows.",
+              "Worked with Power Automate and MySQL for data workflows."
             ]}
-            tags={["Flask", "Python", "Power BI", "Power Automate", "MySQL"]}
+            tech={["Flask", "Python", "Power BI", "MySQL"]}
           />
 
-          <TimelineItem
-            heading="Nereus Technologies — Web/App Developer Intern"
-            subheading="Shipped company website; React Native app front‑end"
+          <ExperienceItem
+            role="Web/App Developer Intern"
+            company="Nereus Technologies"
             period="Jul 2024"
-            bullets={[
+            description={[
               "Built nereustechnologies.com with React, Tailwind, and TypeScript.",
-              "Contributed to a cross‑platform React Native app; integrated Firebase for multi‑platform data sync.",
+              "Contributed to a cross‑platform React Native app; integrated Firebase for multi‑platform data sync."
             ]}
-            tags={["React", "Tailwind", "TypeScript", "React Native", "Firebase"]}
+            tech={["React", "Tailwind", "TypeScript", "React Native", "Firebase"]}
           />
-        </Section>
+        </div>
+      </section>
 
-        {/* --- RESEARCH & PUBLICATIONS --- */}
-        <Section title="Research" icon={<BookOpen className="w-8 h-8 text-neo-black"/>} colorClass="bg-neo-green">
-          <TimelineItem
-            heading="Cross‑Domain Transfer Learning for WSN Anomaly Detection"
-            subheading="PLOS ONE — Submitted"
+      {/* Research */}
+      <section className="mb-32">
+        <SectionHeader title="Research" number="02" />
+        <div className="space-y-12">
+          <ExperienceItem
+            role="Researcher (Anomaly Detection)"
+            company="PLOS ONE (Submitted)"
             period="2025"
-            bullets={[
-              "Authored and submitted a research paper detailing a novel anomaly‑detection framework to the PLOS ONE journal.",
-              "Developed a hybrid Isolation Forest/LSTM model to address cross‑domain transfer learning challenges in IoT/WSN networks.",
+            description={[
+              "Authored and submitted a research paper detailing a novel anomaly‑detection framework.",
+              "Developed a hybrid Isolation Forest/LSTM model to address cross‑domain transfer learning challenges in IoT/WSN networks."
             ]}
-            tags={["PLOS ONE", "Isolation Forest", "LSTM", "IoT", "Transfer Learning"]}
-            highlight
-            highlightColor="bg-neo-white"
+            tech={["Isolation Forest", "LSTM", "IoT", "Transfer Learning"]}
           />
-
-          <TimelineItem
-            heading="HPE CTY Program — NLP Lead"
-            subheading="Query‑classification system (RoBERTa + ensemble)"
+          
+          <ExperienceItem
+            role="NLP Lead"
+            company="HPE CTY Program"
             period="2024–2025"
-            bullets={[
+            description={[
               "Led model design and evaluation; reached ~97.3% classification accuracy.",
               "Built an ensemble around RoBERTa; documented metrics and instrumentation.",
-              "Focused on clarity, safety, and reproducibility with well‑structured experiments.",
+              "Focused on clarity, safety, and reproducibility with well‑structured experiments."
             ]}
-            tags={["NLP", "RoBERTa", "Ensembles", "Evaluation"]}
+            tech={["NLP", "RoBERTa", "Ensembles", "Evaluation"]}
           />
-        </Section>
+        </div>
+      </section>
 
-        {/* --- EDUCATION --- */}
-        <Section title="Education" icon={<GraduationCap className="w-8 h-8 text-neo-black"/>} colorClass="bg-neo-blue">
-          <Card className="border-2 border-neo-black shadow-neo ml-6 bg-white">
-            <CardContent className="p-8">
-              <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
-                <div>
-                  <h3 className="text-3xl font-black uppercase">VIT Vellore</h3>
-                  <p className="text-xl font-medium text-gray-700 mt-2">B.Tech — CSE (Business Systems)</p>
-                </div>
-                <div className="md:text-right bg-neo-black text-neo-white p-4">
-                  <div className="text-sm font-mono uppercase tracking-wider mb-1">Final Year</div>
-                  <div className="text-3xl font-bold text-neo-yellow">CGPA 9.29</div>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-        </Section>
-      </div>
+      {/* Education */}
+      <section>
+        <SectionHeader title="Education" number="03" />
+        <div className="bg-zinc-50 dark:bg-zinc-900 p-8 border border-black dark:border-white">
+          <div className="flex flex-col md:flex-row justify-between md:items-end gap-4">
+            <div>
+              <h3 className="text-3xl font-black mb-2">VIT Vellore</h3>
+              <p className="text-xl text-zinc-600 dark:text-zinc-400">B.Tech — CSE (Business Systems)</p>
+            </div>
+            <div className="text-right">
+              <div className="font-mono text-sm text-zinc-500 mb-1">CGPA</div>
+              <div className="text-4xl font-black text-red-500">9.29</div>
+            </div>
+          </div>
+        </div>
+      </section>
 
-      {/* Scroll progress bar */}
-      <motion.div className="fixed top-0 left-0 right-0 h-2 bg-neo-black z-[60] origin-left" style={{ scaleX }} />
     </div>
   );
 }

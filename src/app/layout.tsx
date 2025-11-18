@@ -1,16 +1,37 @@
 import type { Metadata } from "next"
-import { Inter } from 'next/font/google'
+import { Space_Grotesk, Space_Mono } from 'next/font/google'
 import "./globals.css"
 import { cn } from "@/lib/utils"
 import Link from 'next/link'
 import { ThemeProvider } from "@/components/theme-provider"
 import { ThemeToggle } from "@/components/theme-toggle"
-const inter = Inter({ subsets: ["latin"] })
+import { CustomCursor } from "@/components/custom-cursor"
+
+const spaceGrotesk = Space_Grotesk({
+  subsets: ["latin"],
+  variable: '--font-space-grotesk',
+})
+
+const spaceMono = Space_Mono({
+  subsets: ["latin"],
+  weight: ['400', '700'],
+  variable: '--font-space-mono',
+})
 
 export const metadata: Metadata = {
-  title: "Portfolio",
-  description: "Personal portfolio website",
+  title: "Vishnu | Portfolio",
+  description: "Creative Developer & Software Engineer",
 }
+
+const NavLink = ({ href, children }: { href: string; children: React.ReactNode }) => (
+  <Link
+    href={href}
+    className="relative text-sm font-mono uppercase tracking-widest hover:text-red-500 transition-colors group"
+  >
+    {children}
+    <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-red-500 transition-all group-hover:w-full" />
+  </Link>
+);
 
 export default function RootLayout({
   children,
@@ -19,51 +40,48 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={cn(inter.className, "min-h-screen bg-gray-50 dark:bg-gray-900")}>
+      <body className={cn(spaceGrotesk.variable, spaceMono.variable, "font-sans min-h-screen bg-background text-foreground transition-colors duration-300 selection:bg-red-500 selection:text-white")}>
         <ThemeProvider
           attribute="class"
-          defaultTheme="light"
+          defaultTheme="system"
           enableSystem
           disableTransitionOnChange
         >
-          <header className="h-16">
-            <nav className="fixed top-4 left-1/2 transform -translate-x-1/2 bg-[#545885] dark:bg-[#2d2d36] shadow-lg bg-opacity-90 rounded-full px-6 py-2 z-50">
-              <div className="flex items-center space-x-6">
-                <Link 
-                  href="/" 
-                  className="text-xl font-bold text-white hover:opacity-75 transition-colors relative group"
-                >
-                  <span className="relative z-10">Portfolio</span>
-                  <span className="absolute bottom-0 left-0 w-0 h-0.5 transition-all duration-300 group-hover:w-full"></span>
-                </Link>
-                
-                <ul className="flex items-center space-x-8">
-                  {[
-                    ['About', '/about'],
-                    ['Projects', '/projects'],
-                    ['Skills', '/skills']
-                  ].map(([title, url]) => (
-                    <li key={url}>
-                      <Link
-                        href={url}
-                        className="relative text-white hover:opacity-75 transition-colors py-2 group"
-                      >
-                        <span className="relative z-10">{title}</span>
-                        <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-white transition-all duration-300 group-hover:w-full"></span>
-                      </Link>
-                    </li>
-                  ))}
-                  <li>
-                    <ThemeToggle />
-                  </li>
-                </ul>
+          {/* Top Navigation Bar */}
+          <header className="fixed top-0 left-0 right-0 z-50 border-b-2 border-black dark:border-white bg-white/80 dark:bg-black/80 backdrop-blur-md">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+              <Link
+                href="/"
+                className="text-2xl font-black tracking-tighter hover:text-red-500 transition-colors"
+              >
+                VISHNU<span className="text-red-500">.</span>
+              </Link>
+
+              <nav className="hidden md:flex items-center gap-12">
+                <NavLink href="/about">About</NavLink>
+                <NavLink href="/projects">Projects</NavLink>
+                <NavLink href="/skills">Skills</NavLink>
+              </nav>
+
+              <div className="flex items-center gap-6">
+                <ThemeToggle />
+                {/* Mobile Menu Button could go here */}
               </div>
-            </nav>
+            </div>
           </header>
 
-          <main className="h-[calc(100vh-4rem)]">
+          <main className="pt-20 min-h-screen relative">
+            {/* Grid Background Effect */}
+            <div className="fixed inset-0 z-[-1] opacity-[0.03] pointer-events-none" 
+                 style={{ 
+                   backgroundImage: 'linear-gradient(to right, #808080 1px, transparent 1px), linear-gradient(to bottom, #808080 1px, transparent 1px)', 
+                   backgroundSize: '40px 40px' 
+                 }} 
+            />
             {children}
           </main>
+          
+          <CustomCursor />
         </ThemeProvider>
       </body>
     </html>

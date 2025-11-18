@@ -1,9 +1,10 @@
 "use client";
 
 import React, { useRef } from "react";
-import { motion, useScroll, useTransform, useInView } from "framer-motion";
+import { motion, useScroll, useInView } from "framer-motion";
 import { Code, Database, Layers, Terminal, Wrench, Laptop } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
+import { Card } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
 
 const SkillCategory: React.FC<{
@@ -13,63 +14,50 @@ const SkillCategory: React.FC<{
   index: number;
 }> = ({ title, icon, skills, index }) => {
   const ref = useRef<HTMLDivElement>(null);
-  const isInView = useInView(ref, { once: true, margin: "-100px" });
-  const isOdd = index % 2 === 1;
+  const isInView = useInView(ref, { once: true, margin: "-50px" });
   
   return (
     <motion.div 
       ref={ref}
-      initial={{ opacity: 0, x: isOdd ? 50 : -50 }}
-      animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: isOdd ? 50 : -50 }}
-      transition={{ duration: 0.7, ease: "easeOut" }}
-      className={cn(
-        "flex flex-col md:flex-row items-center gap-10 py-24",
-        isOdd && "md:flex-row-reverse"
-      )}
+      initial={{ opacity: 0, x: index % 2 === 0 ? -50 : 50 }}
+      animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: index % 2 === 0 ? -50 : 50 }}
+      transition={{ duration: 0.5, ease: "easeOut" }}
+      className="mb-16"
     >
-      {/* Icon Circle */}
-      <div className="flex-shrink-0 w-32 h-32 rounded-full flex items-center justify-center bg-gradient-to-br from-primary/15 to-primary/5 border border-primary/20 shadow-xl">
-        <div className="w-16 h-16 flex items-center justify-center text-primary">
-          {React.cloneElement(icon, { className: "w-14 h-14" ,...icon.props})}
-        </div>
-      </div>
-      
-      {/* Content */}
-      <div className="flex-grow">
-        <h3 className="text-3xl md:text-4xl font-bold mb-6 text-gray-800">
-          {title}
-        </h3>
-        
-        <div className="flex flex-wrap gap-3 mb-6">
-          {skills.map((skill, i) => (
-            <motion.div
-              key={skill}
-              initial={{ opacity: 0, y: 10 }}
-              animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 10 }}
-              transition={{ duration: 0.4, delay: i * 0.05, ease: "easeOut" }}
-            >
-              <Badge 
-                variant="outline"
-                className="px-4 py-2 text-base font-medium bg-white shadow-md hover:bg-gray-50 border-gray-200"
+      <Card className="border-4 border-neo-black shadow-neo bg-white overflow-hidden">
+        <div className="p-6 md:p-8">
+          <div className="flex items-center gap-6 mb-6 border-b-4 border-neo-black pb-6">
+            <div className="w-20 h-20 flex items-center justify-center bg-neo-black text-neo-yellow border-4 border-neo-black shadow-[4px_4px_0px_0px_#000]">
+              {React.cloneElement(icon, { className: "w-10 h-10" ,...icon.props})}
+            </div>
+            <h3 className="text-3xl md:text-4xl font-black uppercase tracking-tight text-neo-black">
+              {title}
+            </h3>
+          </div>
+          
+          <div className="flex flex-wrap gap-3">
+            {skills.map((skill, i) => (
+              <motion.div
+                key={skill}
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={isInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.8 }}
+                transition={{ duration: 0.3, delay: i * 0.05 }}
               >
-                {skill}
-              </Badge>
-            </motion.div>
-          ))}
+                <Badge 
+                  className="px-4 py-2 text-sm font-bold bg-neo-white text-neo-black border-2 border-neo-black hover:bg-neo-black hover:text-neo-white transition-colors shadow-[2px_2px_0px_0px_#000]"
+                >
+                  {skill}
+                </Badge>
+              </motion.div>
+            ))}
+          </div>
         </div>
-        
-        <div className={cn(
-          "h-2 w-full mt-8 bg-gradient-to-r rounded-full",
-          index % 3 === 0 ? "from-primary to-purple-500" :
-          index % 3 === 1 ? "from-blue-500 to-cyan-400" : 
-          "from-emerald-500 to-green-400"
-        )}/>
-      </div>
+      </Card>
     </motion.div>
   );
 };
 
-const ExpertiseCard: React.FC<{
+const ExpertiseBar: React.FC<{
   title: string;
   level: number;
   index: number;
@@ -77,32 +65,24 @@ const ExpertiseCard: React.FC<{
   const ref = useRef<HTMLDivElement>(null);
   const isInView = useInView(ref, { once: true });
 
+  const colors = ["bg-neo-yellow", "bg-neo-pink", "bg-neo-blue", "bg-neo-green"];
+  const barColor = colors[index % colors.length];
+
   return (
-    <motion.div
-      ref={ref}
-      initial={{ opacity: 0, y: 20 }}
-      animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-      transition={{ duration: 0.6, delay: index * 0.1 }}
-      className="bg-white rounded-xl p-7 shadow-xl border border-gray-100"
-    >
-      <div className="flex justify-between items-center mb-4">
-        <h4 className="text-xl font-semibold text-gray-800">{title}</h4>
-        <span className="text-lg font-medium text-gray-600">{level}%</span>
+    <div ref={ref} className="mb-8">
+      <div className="flex justify-between items-end mb-2">
+        <h4 className="text-xl font-bold uppercase text-neo-black">{title}</h4>
+        <span className="text-xl font-black text-neo-black">{level}%</span>
       </div>
-      <div className="h-3 w-full bg-gray-100 rounded-full overflow-hidden">
+      <div className="h-8 w-full bg-white border-2 border-neo-black p-1 shadow-[4px_4px_0px_0px_#000]">
         <motion.div
-          className={cn(
-            "h-full rounded-full",
-            index % 3 === 0 ? "bg-gradient-to-r from-primary to-purple-500" :
-            index % 3 === 1 ? "bg-gradient-to-r from-blue-500 to-cyan-400" : 
-            "bg-gradient-to-r from-emerald-500 to-green-400"
-          )}
+          className={cn("h-full border-2 border-neo-black", barColor)}
           initial={{ width: 0 }}
           animate={isInView ? { width: `${level}%` } : { width: 0 }}
-          transition={{ duration: 1, delay: 0.3, ease: "easeOut" }}
+          transition={{ duration: 1, delay: 0.2, ease: "easeOut" }}
         />
       </div>
-    </motion.div>
+    </div>
   );
 };
 
@@ -116,32 +96,32 @@ export default function SkillsPage() {
   const skillCategories = [
     {
       title: "Languages",
-      icon: <Code className="w-8 h-8" />,
+      icon: <Code />,
       skills: ["JavaScript", "TypeScript", "Python", "C/C++", "Java", "Dart", "HTML", "CSS"]
     },
     {
       title: "Frameworks",
-      icon: <Layers className="w-8 h-8" />,
+      icon: <Layers />,
       skills: ["React", "Next.js", "Flutter", "Django", "Express", "TailwindCSS", "Bootstrap"]
     },
     {
       title: "Databases",
-      icon: <Database className="w-8 h-8" />,
+      icon: <Database />,
       skills: ["MongoDB", "MySQL", "PostgreSQL", "Redis", "Firebase"]
     },
     {
       title: "DevOps & Tools",
-      icon: <Wrench className="w-8 h-8" />,
+      icon: <Wrench />,
       skills: ["Git", "Docker", "AWS", "CI/CD", "Vercel", "Netlify"]
     },
     {
       title: "Development",
-      icon: <Laptop className="w-8 h-8" />,
+      icon: <Laptop />,
       skills: ["VS Code", "Postman", "Figma", "Chrome DevTools", "Power BI", "Slack"]
     },
     {
       title: "Paradigms",
-      icon: <Terminal className="w-8 h-8" />,
+      icon: <Terminal />,
       skills: ["RESTful APIs", "GraphQL", "Agile", "TDD", "CI/CD", "Microservices"]
     }
   ];
@@ -156,32 +136,30 @@ export default function SkillsPage() {
   ];
 
   return (
-    <div ref={ref} className="relative min-h-screen bg-gray-50 py-36 px-4 sm:px-6 lg:px-8">
-      {/* Subtle patterns */}
-      <div className="absolute inset-0 z-0 opacity-40">
-        <div className="absolute right-0 top-20 w-96 h-96 bg-gradient-to-br from-primary/5 to-purple-500/5 rounded-full blur-3xl" />
-        <div className="absolute left-20 bottom-40 w-96 h-96 bg-gradient-to-br from-blue-500/5 to-cyan-500/5 rounded-full blur-3xl" />
-      </div>
+    <div ref={ref} className="relative min-h-screen py-20 px-4 sm:px-6 lg:px-8 bg-neo-white">
       
       {/* Header section */}
       <motion.div
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8, ease: "easeOut" }}
+        transition={{ duration: 0.8 }}
         className="relative z-10 max-w-6xl mx-auto mb-20 text-center"
       >
-        <h1 className="text-6xl md:text-7xl font-bold mb-8 text-gray-900">
-          Skills & <span className="bg-gradient-to-r from-primary to-purple-500 bg-clip-text text-transparent">Expertise</span>
+        <Badge className="mb-6 text-xl px-6 py-2 bg-neo-black text-neo-white hover:bg-neo-black">EXPERTISE</Badge>
+        <h1 className="text-7xl md:text-9xl font-black mb-8 text-neo-black uppercase tracking-tighter">
+          Skills
         </h1>
-        <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-          Modern technologies and tools I use to build digital experiences that make an impact.
+        <p className="text-2xl font-bold text-neo-black max-w-3xl mx-auto bg-neo-yellow inline-block px-2 rotate-1 border-2 border-neo-black shadow-neo">
+          My technical arsenal for building cool stuff.
         </p>
       </motion.div>
       
       {/* Main content */}
-      <div className="relative z-10 max-w-6xl mx-auto">
-        {/* Timeline-style skill categories */}
-        <div className="mb-32">
+      <div className="relative z-10 max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12">
+        
+        {/* Left Column: Skill Categories */}
+        <div>
+          <h2 className="text-4xl font-black mb-12 uppercase border-b-4 border-neo-black inline-block">Tech Stack</h2>
           {skillCategories.map((category, index) => (
             <SkillCategory 
               key={category.title}
@@ -193,34 +171,28 @@ export default function SkillsPage() {
           ))}
         </div>
         
-        {/* Expertise grid */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8 }}
-          className="relative z-10 mb-20"
-        >
-          <h2 className="text-4xl md:text-5xl font-bold mb-12 text-center text-gray-900">
-            Proficiency <span className="bg-gradient-to-r from-primary to-purple-500 bg-clip-text text-transparent">Levels</span>
-          </h2>
-          
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {expertises.map((expertise, index) => (
-              <ExpertiseCard 
-                key={expertise.title}
-                title={expertise.title}
-                level={expertise.level}
-                index={index}
-              />
-            ))}
+        {/* Right Column: Expertise Levels */}
+        <div>
+          <div className="sticky top-24">
+            <Card className="border-4 border-neo-black shadow-neo bg-white p-8">
+              <h2 className="text-4xl font-black mb-12 uppercase border-b-4 border-neo-black inline-block">Proficiency</h2>
+              
+              {expertises.map((expertise, index) => (
+                <ExpertiseBar 
+                  key={expertise.title}
+                  title={expertise.title}
+                  level={expertise.level}
+                  index={index}
+                />
+              ))}
+            </Card>
           </div>
-        </motion.div>
+        </div>
       </div>
       
       {/* Scroll progress bar */}
       <motion.div 
-        className="fixed top-0 left-0 right-0 h-2 bg-primary z-50 origin-left"
+        className="fixed top-0 left-0 right-0 h-2 bg-neo-black z-50 origin-left"
         style={{ scaleX: scrollYProgress }}
       />
     </div>

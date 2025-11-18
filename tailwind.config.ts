@@ -57,13 +57,26 @@ const config = {
   				'3': 'hsl(var(--chart-3))',
   				'4': 'hsl(var(--chart-4))',
   				'5': 'hsl(var(--chart-5))'
-  			}
+  			},
+            neo: {
+                yellow: '#FFDE59',
+                pink: '#FF90E8',
+                blue: '#54A0FF',
+                green: '#7ED957',
+                black: '#1a1a1a',
+                white: '#f0f0f0',
+            }
   		},
   		borderRadius: {
   			lg: 'var(--radius)',
   			md: 'calc(var(--radius) - 2px)',
   			sm: 'calc(var(--radius) - 4px)'
-  		}
+  		},
+        boxShadow: {
+            neo: "4px 4px 0px 0px rgba(0,0,0,1)",
+            "neo-hover": "0px 0px 0px 0px rgba(0,0,0,1)",
+            "neo-lg": "8px 8px 0px 0px rgba(0,0,0,1)",
+        }
   	}
   },
   plugins: [require("tailwindcss-animate")],

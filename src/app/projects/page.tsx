@@ -1,8 +1,8 @@
 "use client";
 
-import React, { useRef, useEffect } from "react";
-import { motion, useScroll, useTransform, useInView } from "framer-motion";
-import { Github, ExternalLink, ChevronRight } from "lucide-react";
+import React, { useRef } from "react";
+import { motion, useScroll, useInView } from "framer-motion";
+import { Github, ExternalLink } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Card } from "@/components/ui/card";
@@ -16,111 +16,83 @@ interface Project {
   github?: string;
 }
 
-const ProjectSection: React.FC<{
+const ProjectCard: React.FC<{
   project: Project;
   index: number;
-  isLast: boolean;
-}> = ({ project, index, isLast }) => {
+}> = ({ project, index }) => {
   const ref = useRef<HTMLDivElement>(null);
-  const isInView = useInView(ref, { once: false, margin: "-100px" });
+  const isInView = useInView(ref, { once: true, margin: "-50px" });
   
-  const isEven = index % 2 === 0;
-  
+  // Cycle through neo colors
+  const colors = [
+    "bg-neo-yellow",
+    "bg-neo-pink",
+    "bg-neo-blue",
+    "bg-neo-green",
+    "bg-neo-white",
+  ];
+  const bgColor = colors[index % colors.length];
+
   return (
-    <div className="relative" ref={ref}>
-      {/* Timeline connector */}
-      {!isLast && (
-        <div className="absolute left-[50%] top-[4rem] bottom-[-4rem] w-[2px] bg-gradient-to-b from-primary/80 to-primary/20 z-0" />
-      )}
-      
-      <motion.div
-        initial={{ opacity: 0, y: 50, x: isEven ? -50 : 50 }}
-        animate={isInView ? { opacity: 1, y: 0, x: 0 } : { opacity: 0, y: 50, x: isEven ? -50 : 50 }}
-        transition={{ duration: 0.8, ease: "easeOut" }}
-        className={cn(
-          "relative z-10 flex flex-col items-start mb-24",
-          isEven ? "md:flex-row" : "md:flex-row-reverse"
-        )}
-      >
-        {/* Project number */}
-        <div className="hidden md:flex items-center justify-center w-20 h-20 rounded-full bg-primary text-white font-bold text-xl absolute left-[calc(50%-2.5rem)] top-0 z-10 shadow-lg">
-          {index + 1}
+    <motion.div
+      ref={ref}
+      initial={{ opacity: 0, y: 50, rotate: -2 }}
+      animate={isInView ? { opacity: 1, y: 0, rotate: 0 } : { opacity: 0, y: 50, rotate: -2 }}
+      whileHover={{ rotate: index % 2 === 0 ? 1 : -1, scale: 1.02 }}
+      transition={{ duration: 0.5, type: "spring", stiffness: 100 }}
+      className="h-full"
+    >
+      <Card className={cn("h-full flex flex-col border-4 border-neo-black shadow-neo", bgColor)}>
+        {/* Mac-like Window Header */}
+        <div className="border-b-4 border-neo-black bg-white p-3 flex items-center gap-2">
+          <div className="w-4 h-4 rounded-full border-2 border-neo-black bg-neo-pink" />
+          <div className="w-4 h-4 rounded-full border-2 border-neo-black bg-neo-yellow" />
+          <div className="w-4 h-4 rounded-full border-2 border-neo-black bg-neo-green" />
         </div>
         
-        {/* Project content */}
-        <div className={cn(
-          "w-full md:w-[45%]",
-          isEven ? "md:pr-12" : "md:pl-12"
-        )}>
-          <Card className="overflow-hidden border-none shadow-2xl bg-gradient-to-br from-background/90 to-background p-1">
-            <div className="p-6 backdrop-blur-sm">
-              <h2 className="text-4xl font-bold mb-4 bg-gradient-to-r from-primary to-purple-500 bg-clip-text text-transparent">
-                {project.title}
-              </h2>
-              <p className="text-lg text-muted-foreground mb-6">
-                {project.description}
-              </p>
-              
-              <div className="flex flex-wrap gap-2 mb-8">
-                {project.technologies.map((tech, idx) => (
-                  <Badge key={idx} variant="secondary" className="px-3 py-1 text-sm">
-                    {tech}
-                  </Badge>
-                ))}
-              </div>
-              
-              <div className="flex gap-4">
-                {project.link && (
-                  <Button
-                    variant="default"
-                    size="sm"
-                    className="group"
-                    asChild
-                  >
-                    <a 
-                      href={project.link}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      <span>Visit Site</span>
-                      <ExternalLink className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
-                    </a>
-                  </Button>
-                )}
-                
-                {project.github && (
-                  <Button
-                    variant="outline"
-                    size="sm"
-                    className="group"
-                    asChild
-                  >
-                    <a 
-                      href={project.github}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      <Github className="mr-2 h-4 w-4" />
-                      <span>Source Code</span>
-                    </a>
-                  </Button>
-                )}
-              </div>
-            </div>
-          </Card>
-        </div>
-        
-        {/* Illustration placeholder - replace with actual project images */}
-        {/* <div className={cn(
-          "w-full md:w-[45%] aspect-video rounded-xl overflow-hidden hidden md:block",
-          isEven ? "md:pl-12" : "md:pr-12"
-        )}>
-          <div className="w-full h-full bg-gradient-to-br from-primary/20 to-primary/5 flex items-center justify-center">
-            <span className="text-4xl font-bold text-primary/30">{project.title[0]}</span>
+        <div className="p-6 md:p-8 flex-grow flex flex-col">
+          <h2 className="text-4xl font-black mb-4 uppercase tracking-tight text-neo-black">
+            {project.title}
+          </h2>
+          
+          <p className="text-lg font-medium text-neo-black/80 mb-6 flex-grow leading-relaxed">
+            {project.description}
+          </p>
+          
+          <div className="flex flex-wrap gap-2 mb-8">
+            {project.technologies.map((tech, idx) => (
+              <Badge 
+                key={idx} 
+                variant="outline" 
+                className="border-2 border-neo-black bg-white text-neo-black font-bold px-3 py-1 text-sm"
+              >
+                {tech}
+              </Badge>
+            ))}
           </div>
-        </div> */}
-      </motion.div>
-    </div>
+          
+          <div className="flex gap-4 mt-auto">
+            {project.link && (
+              <Button asChild className="bg-neo-black text-neo-white hover:bg-gray-800 shadow-neo border-2 border-transparent">
+                <a href={project.link} target="_blank" rel="noopener noreferrer">
+                  <span>Visit</span>
+                  <ExternalLink className="ml-2 h-4 w-4" />
+                </a>
+              </Button>
+            )}
+            
+            {project.github && (
+              <Button asChild variant="outline" className="bg-white border-2 border-neo-black shadow-neo hover:bg-gray-100">
+                <a href={project.github} target="_blank" rel="noopener noreferrer">
+                  <Github className="mr-2 h-4 w-4" />
+                  <span>Code</span>
+                </a>
+              </Button>
+            )}
+          </div>
+        </div>
+      </Card>
+    </motion.div>
   );
 };
 
@@ -142,14 +114,14 @@ export default function ProjectsPage() {
     {
       title: "AnemiaSense",
       description: "An AI-based mobile application that uses image processing and machine learning to detect anemia in patients through non-invasive methods.",
-      technologies: ["Bootstrap CSS", "TensorFlow", "Random Forest Classifier"],
+      technologies: ["Bootstrap CSS", "TensorFlow", "Random Forest"],
       link: "https://anemiasense.onrender.com/",
       github: "https://github.com/Vishnu-adi/Anemia_Sense"
     },
     {
-      title: "Movie Recommendation",
+      title: "Movie Recs",
       description: "A personalized movie recommendation system using the MERN stack and machine learning algorithms to provide users with tailored suggestions.",
-      technologies: ["MongoDB", "Express", "React", "Node.js", "Python", "Machine Learning", "NLP"],
+      technologies: ["MERN Stack", "Python", "ML", "NLP"],
       link: "https://your-live-demo.com",
       github: "https://github.com/Vishnu-adi/"
     },
@@ -161,14 +133,14 @@ export default function ProjectsPage() {
       github: "https://github.com/yourusername/project"
     },
     {
-      title: "Flutter Expense Tracker",
+      title: "Expense Tracker",
       description: "A cross-platform application to help users manage and track their expenses, featuring expense categorization, visual summaries, and report generation.",
       technologies: ["Flutter", "Dart", "Hive"],
       link: "https://your-live-demo.com",
       github: "https://github.com/Vishnu-Adi/Expense_tracker"
     },
     {
-      title: "Personal Bookshelf",
+      title: "My Bookshelf",
       description: "A digital bookshelf application that allows users to manage their reading list, discover new books, and track their reading progress.",
       technologies: ["React", "Open Library API"],
       link: "https://personal-bookshelf-hazel.vercel.app/",
@@ -177,45 +149,38 @@ export default function ProjectsPage() {
   ];
 
   return (
-    <div ref={ref} className="relative min-h-screen bg-gradient-to-b from-background to-background/50 py-32 px-4 sm:px-6 lg:px-8">
-      {/* Background elements */}
-      <div className="absolute inset-0 overflow-hidden z-0">
-        <div className="absolute -top-[30%] -right-[10%] w-[500px] h-[500px] rounded-full bg-primary/5 blur-[100px]" />
-        <div className="absolute top-[40%] -left-[10%] w-[400px] h-[400px] rounded-full bg-purple-500/5 blur-[100px]" />
-        <div className="absolute -bottom-[10%] right-[20%] w-[600px] h-[600px] rounded-full bg-blue-500/5 blur-[100px]" />
-      </div>
+    <div ref={ref} className="relative min-h-screen py-20 px-4 sm:px-6 lg:px-8 bg-neo-white">
       
       {/* Header */}
       <motion.div
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8, ease: "easeOut" }}
-        className="relative z-10 max-w-7xl mx-auto mb-24 text-center"
+        className="relative z-10 max-w-7xl mx-auto mb-20 text-center"
       >
-        <h1 className="text-6xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-primary to-purple-500 bg-clip-text text-transparent">
+        <Badge className="mb-6 text-xl px-6 py-2 bg-neo-black text-neo-white hover:bg-neo-black">PORTFOLIO</Badge>
+        <h1 className="text-7xl md:text-9xl font-black mb-6 text-neo-black uppercase tracking-tighter">
           Projects
         </h1>
-        <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-          Explore my portfolio of work showcasing expertise in modern web technologies, 
-          AI/ML solutions, and innovative digital experiences.
+        <p className="text-2xl font-bold text-neo-black max-w-3xl mx-auto border-b-4 border-neo-pink pb-4 inline-block">
+          Stuff I've built. Some serious, some just for fun.
         </p>
       </motion.div>
       
-      {/* Projects timeline */}
-      <div className="relative z-10 max-w-7xl mx-auto">
+      {/* Projects Grid */}
+      <div className="relative z-10 max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-10">
         {projects.map((project, index) => (
-          <ProjectSection 
+          <ProjectCard 
             key={index} 
             project={project} 
             index={index}
-            isLast={index === projects.length - 1}
           />
         ))}
       </div>
       
       {/* Scroll progress bar */}
       <motion.div 
-        className="fixed top-0 left-0 right-0 h-1 bg-primary z-50 origin-left"
+        className="fixed top-0 left-0 right-0 h-2 bg-neo-black z-50 origin-left"
         style={{ scaleX: scrollYProgress }}
       />
     </div>

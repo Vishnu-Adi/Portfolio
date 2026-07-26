@@ -5,7 +5,16 @@ import { motion, AnimatePresence } from "framer-motion";
 import { ArrowUpRight, ChevronDown, Github } from "lucide-react";
 import Link from "next/link";
 
-const featured = [
+interface Project {
+  title: string;
+  description: string;
+  tags: string[];
+  link: string;
+  github: string;
+  year: string;
+}
+
+const featured: Project[] = [
   {
     title: "WebDrop",
     description: "Browser-native peer-to-peer file sharing with no native install or manual device selection. Uses device motion and ultrasonic Web Audio pairing, then streams files over WebRTC data channels with chunked OPFS storage.",
@@ -24,7 +33,7 @@ const featured = [
   }
 ];
 
-const archive = [
+const archive: Project[] = [
   {
     title: "VeriScope",
     description: "Unbiased AI News Aggregator. Developed a platform using Python and Next.js to analyze and neutralize media bias. Implemented algorithms to provide balanced information and designed a responsive UI with data visualizations for bias scores.",
@@ -107,16 +116,20 @@ const archive = [
   }
 ];
 
-function hasLiveDemo(project) {
-  return project.link && project.link !== "#" && project.link !== project.github;
+function hasLiveDemo(project: Project): boolean {
+  return (
+    project.link !== "#" &&
+    project.link !== "" &&
+    project.link !== project.github
+  );
 }
 
 export default function ProjectsPage() {
   const [activeTag, setActiveTag] = useState("All");
-  const [expanded, setExpanded] = useState(null);
+  const [expanded, setExpanded] = useState<string | null>(null);
 
   const tags = useMemo(() => {
-    const set = new Set();
+    const set = new Set<string>();
     archive.forEach(p => p.tags.forEach(t => set.add(t)));
     return ["All", ...Array.from(set).sort()];
   }, []);

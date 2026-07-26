@@ -68,27 +68,27 @@ export default function SkillsPage() {
     {
       title: "Languages",
       icon: Code2,
-      items: ["Python", "R", "Java", "C++", "JavaScript", "TypeScript", "SQL", "HTML/CSS"]
+      items: ["Python", "Java", "C", "C++", "JavaScript", "TypeScript", "SQL", "R", "Swift", "HTML/CSS"]
     },
     {
       title: "Frameworks & Libraries",
       icon: Layers,
-      items: ["Pandas", "NumPy", "Scikit-learn", "Matplotlib", "React", "Next.js", "Flask", "Node.js"]
+      items: ["React", "Next.js", "Node.js", "Express", "Flask", "WebRTC", "PyTorch", "Scikit-learn", "XGBoost", "Matplotlib"]
     },
     {
       title: "Databases & Tools",
       icon: Database,
-      items: ["MongoDB", "MySQL", "Firebase", "Git", "GitHub", "Power BI", "Tableau", "Salesforce", "Power Automate", "AWS"]
+      items: ["MongoDB", "MySQL", "Firebase", "Dexie/IndexedDB", "Git", "GitHub", "Docker", "AWS (EC2)", "Salesforce", "Power BI", "Tableau", "Power Automate"]
     },
     {
       title: "Data Science",
       icon: Brain,
-      items: ["Machine Learning", "Predictive Modeling", "Data Visualization", "Natural Language Processing", "ETL"]
+      items: ["Machine Learning", "Predictive Modeling", "Data Visualization", "Natural Language Processing", "RoBERTa/Transformers", "LSTM", "Isolation Forest", "Model Fine-Tuning", "Pandas", "NumPy"]
     },
     {
       title: "Core Competencies",
       icon: BarChart3,
-      items: ["Technical Analysis", "Business Process Automation", "Client-Facing Solutions", "Issue Resolution", "Agile"]
+      items: ["Embedded Debugging", "Networking Protocols", "Business Process Automation", "Client-Facing Solutions", "Issue Resolution", "Agile", "CI/CD"]
     }
   ];
 
@@ -111,8 +111,8 @@ export default function SkillsPage() {
              Focused on <span className="underline decoration-red-500 decoration-4 underline-offset-4">Data Science</span> and <span className="underline decoration-red-500 decoration-4 underline-offset-4">Software Engineering</span>.
           </p>
           <div className="ml-auto font-mono text-sm text-zinc-500 dark:text-zinc-400 text-right">
-            <p>CURRENT_STACK_VERSION: 3.0.0</p>
-            <p>LAST_UPDATED: NOV_2025</p>
+            <p>CURRENT_STACK_VERSION: 4.0.0</p>
+            <p>LAST_UPDATED: JUL_2026</p>
           </div>
         </div>
       </motion.header>
@@ -124,13 +124,13 @@ export default function SkillsPage() {
             <div key={i} className="flex items-center mx-4">
               <span className="text-4xl font-black mx-8">PYTHON</span>
               <span className="w-3 h-3 bg-red-500 rounded-full" />
-              <span className="text-4xl font-black mx-8">REACT</span>
+              <span className="text-4xl font-black mx-8">C / C++</span>
               <span className="w-3 h-3 bg-red-500 rounded-full" />
               <span className="text-4xl font-black mx-8">MACHINE LEARNING</span>
               <span className="w-3 h-3 bg-red-500 rounded-full" />
-              <span className="text-4xl font-black mx-8">NEXT.JS</span>
+              <span className="text-4xl font-black mx-8">REACT / NEXT.JS</span>
               <span className="w-3 h-3 bg-red-500 rounded-full" />
-              <span className="text-4xl font-black mx-8">AWS</span>
+              <span className="text-4xl font-black mx-8">SFDC / CI-CD</span>
               <span className="w-3 h-3 bg-red-500 rounded-full" />
             </div>
           ))}

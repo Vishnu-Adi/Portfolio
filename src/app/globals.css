@@ -1,9 +1,20 @@
+@import "@fontsource/space-grotesk/latin-300.css";
+@import "@fontsource/space-grotesk/latin-400.css";
+@import "@fontsource/space-grotesk/latin-500.css";
+@import "@fontsource/space-grotesk/latin-600.css";
+@import "@fontsource/space-grotesk/latin-700.css";
+@import "@fontsource/space-mono/latin-400.css";
+@import "@fontsource/space-mono/latin-700.css";
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 @layer base {
   :root {
+    --font-space-grotesk: "Space Grotesk";
+    --font-space-mono: "Space Mono";
+
     --background: 0 0% 100%; /* White */
     --foreground: 0 0% 0%; /* Black */
     

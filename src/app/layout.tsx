@@ -1,22 +1,9 @@
 import type { Metadata } from "next"
-import { Space_Grotesk, Space_Mono } from 'next/font/google'
 import "./globals.css"
-import { cn } from "@/lib/utils"
 import Link from 'next/link'
 import { ThemeProvider } from "@/components/theme-provider"
 import { ThemeToggle } from "@/components/theme-toggle"
 import { CustomCursor } from "@/components/custom-cursor"
-
-const spaceGrotesk = Space_Grotesk({
-  subsets: ["latin"],
-  variable: '--font-space-grotesk',
-})
-
-const spaceMono = Space_Mono({
-  subsets: ["latin"],
-  weight: ['400', '700'],
-  variable: '--font-space-mono',
-})
 
 export const metadata: Metadata = {
   title: "Vishnu | Portfolio",
@@ -40,7 +27,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={cn(spaceGrotesk.variable, spaceMono.variable, "font-sans min-h-screen bg-background text-foreground transition-colors duration-300 selection:bg-red-500 selection:text-white")}>
+      <body className="font-sans min-h-screen bg-background text-foreground transition-colors duration-300 selection:bg-red-500 selection:text-white">
         <ThemeProvider
           attribute="class"
           defaultTheme="system"

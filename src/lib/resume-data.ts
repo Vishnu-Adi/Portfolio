@@ -44,6 +44,7 @@ PROJECTS
 - Nearby phones pair through a physical bump detected by the device-motion sensor and an ultrasonic Web Audio handshake; files stream over WebRTC data channels with chunked OPFS storage.
 - Tech: JavaScript, WebRTC, OPFS, Web Audio, Device Motion
 - Demo: https://web-drop-lyart.vercel.app/
+- Source: https://github.com/Vishnu-Adi/WebDrop
 
 2. VeriScope - Unbiased AI News Aggregator
 - Developed a Python and Next.js news-analysis platform that applies NLP algorithms to detect and neutralize slanted language across articles.
@@ -55,18 +56,7 @@ PROJECTS
 - Built an AI tutor with function-calling tools, a realtime voice tutor that separates foreground and background models, and source-aware chat grounded in the user's own PDFs.
 - Engineered an auditable learner-memory layer with embeddings, semantic retrieval, and mastery tracking on an approximately 6,000-line Express backend.
 - Tech: TypeScript, React 19, OpenRouter, Deepgram, Dexie/IndexedDB, Express
-
-PROJECT NOTES AND TRADEOFFS
-
-WebDrop: The hard part is coordinating proximity, signaling, connection state and storage in a browser without a native file-transfer layer. A future version should make interrupted transfers and progress states more explicit.
-VeriScope: A numerical bias score is useful only when the reader can inspect the language signals behind it. The visualization should make the model legible without pretending language is perfectly objective.
-Tutor-System: The challenge is keeping source context, retrieval and mastery state coherent over a long conversation. A useful memory layer should leave a trace so remembered details can be explained and corrected.
-
-FIELD NOTES
-
-The browser is already a system: WebDrop made the browser boundary impossible to ignore.
-A good interface hides complexity, not responsibility: reliability is part of the experience whether or not someone sees the infrastructure.
-Retrieval is a design decision: memory is not a feature until it can be explained.
+- Source: https://github.com/Vishnu-Adi/Tutor-System
 
 RESEARCH
 

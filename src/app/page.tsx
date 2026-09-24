@@ -6,6 +6,7 @@ import { ArrowUpRight, Github as GhIcon, Linkedin, FileText, Zap, Code, FolderGi
 import { motion } from "framer-motion";
 import Link from "next/link";
 import ChatInterface from "@/components/chat-interface";
+import { RESUME_URL } from "@/lib/site";
 
 const Home: NextPage = () => {
   const container = {
@@ -44,7 +45,7 @@ const Home: NextPage = () => {
                   <span className="text-zinc-400 dark:text-zinc-600">ADITHYA.</span>
                 </h1>
                 <p className="text-lg font-medium text-zinc-600 dark:text-zinc-400 max-w-sm">
-                  Building reliable software and ML systems with a focus on clarity, deployment safety, and measurable outcomes.
+                  Building reliable software and ML systems across embedded networking, applied AI, and modern web platforms.
                 </p>
               </div>
               <div className="flex justify-between items-end z-10 mt-12">
@@ -96,12 +97,12 @@ const Home: NextPage = () => {
 
         {/* 5. Resume (Span 1x1) */}
         <motion.div variants={item} className="md:col-span-1">
-          <Link href="https://drive.google.com/file/d/1oZkEncq59B4plTXUwCzj6KG3hQQwww1X/view?usp=sharing" target="_blank" className="block h-full">
+          <Link href={RESUME_URL} target="_blank" rel="noreferrer" className="block h-full">
             <Card className="h-full p-6 flex flex-col justify-between bg-white dark:bg-zinc-900 border-0 shadow-xl hover:scale-[1.02] transition-all duration-300 rounded-3xl group">
               <FileText className="w-8 h-8 text-zinc-400 group-hover:text-red-500 transition-colors" />
               <div>
                 <h3 className="text-xl font-bold mb-1">Resume</h3>
-                <p className="text-xs text-zinc-500 font-mono">UPDATED CV</p>
+                <p className="text-xs text-zinc-500 font-mono">SWE / ML CV</p>
               </div>
             </Card>
           </Link>
@@ -132,7 +133,7 @@ const Home: NextPage = () => {
                   <Mail className="w-6 h-6" />
                 </div>
                 <div>
-                  <h3 className="text-lg font-bold">Let's work together</h3>
+                  <h3 className="text-lg font-bold">Let&apos;s work together</h3>
                   <p className="text-sm opacity-70">vishnuadithya7@gmail.com</p>
                 </div>
               </div>

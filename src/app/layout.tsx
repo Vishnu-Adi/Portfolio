@@ -6,8 +6,8 @@ import { ThemeToggle } from "@/components/theme-toggle"
 import { CustomCursor } from "@/components/custom-cursor"
 
 export const metadata: Metadata = {
-  title: "Vishnu | Portfolio",
-  description: "Creative Developer & Software Engineer",
+  title: "Vishnu Adithya | SWE & ML Portfolio",
+  description: "Software engineer and machine learning builder specializing in embedded systems, NLP, and production-ready web and AI products.",
 }
 
 const NavLink = ({ href, children }: { href: string; children: React.ReactNode }) => (

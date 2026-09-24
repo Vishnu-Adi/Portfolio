@@ -17,16 +17,24 @@ interface Project {
 const featured: Project[] = [
   {
     title: "WebDrop",
-    description: "Browser-native peer-to-peer file sharing with no native install or manual device selection. Uses device motion and ultrasonic Web Audio pairing, then streams files over WebRTC data channels with chunked OPFS storage.",
-    tags: ["JavaScript", "WebRTC", "OPFS", "Web Audio"],
+    description: "Browser-native peer-to-peer file sharing with no native install or manual device selection. Devices pair through a motion-detected bump and an ultrasonic Web Audio handshake, then stream files over WebRTC data channels with chunked OPFS storage.",
+    tags: ["JavaScript", "WebRTC", "OPFS", "Web Audio", "Device Motion"],
     link: "https://web-drop-lyart.vercel.app/",
     github: "https://github.com/Vishnu-Adi/WebDrop",
     year: "2026"
   },
   {
+    title: "VeriScope",
+    description: "An AI news-analysis platform built with Python and Next.js that detects and neutralizes slanted language, with a responsive interface that visualizes bias scores for more balanced coverage across sources.",
+    tags: ["Python", "Next.js", "NLP", "Data Visualization"],
+    link: "https://github.com/Vishnu-Adi/VeriScope",
+    github: "https://github.com/Vishnu-Adi/VeriScope",
+    year: "2025"
+  },
+  {
     title: "Tutor-System",
-    description: "AI learning platform with function-calling tools, realtime voice tutoring, source-aware PDF chat, and an auditable learner-memory layer with embeddings and mastery tracking.",
-    tags: ["TypeScript", "React", "OpenRouter", "Deepgram"],
+    description: "An AI learning platform with function-calling tools, realtime voice tutoring, source-aware PDF chat, and an auditable learner-memory layer using embeddings, semantic retrieval, and mastery tracking on an approximately 6,000-line Express backend.",
+    tags: ["TypeScript", "React 19", "OpenRouter", "Deepgram", "Dexie/IndexedDB", "Express"],
     link: "https://tutor-system-architecture.vercel.app/",
     github: "https://github.com/Vishnu-Adi/Tutor-System",
     year: "2026"
@@ -34,14 +42,6 @@ const featured: Project[] = [
 ];
 
 const archive: Project[] = [
-  {
-    title: "VeriScope",
-    description: "Unbiased AI News Aggregator. Developed a platform using Python and Next.js to analyze and neutralize media bias. Implemented algorithms to provide balanced information and designed a responsive UI with data visualizations for bias scores.",
-    tags: ["Next.js", "Python", "AI/ML", "NLP"],
-    link: "https://github.com/Vishnu-Adi/VeriScope",
-    github: "https://github.com/Vishnu-Adi/VeriScope",
-    year: "2025"
-  },
   {
     title: "LexiFlow",
     description: "AI Reading Coach Chrome Extension. Engineered a client-side tool using NLP models (XGBoost/BERT) to analyze and simplify complex web text. Integrated eye-tracking for dynamic UX and Text-to-Speech for accessibility.",
@@ -151,7 +151,7 @@ export default function ProjectsPage() {
           <span className="text-red-500">.</span>
         </h1>
         <p className="text-xl max-w-2xl font-medium text-zinc-600 dark:text-zinc-400">
-          Selected projects, internships, and research aligned with my current resume.
+          Browser-native systems, applied machine learning, and full-stack AI products.
         </p>
       </motion.header>
 
@@ -166,7 +166,7 @@ export default function ProjectsPage() {
           </span>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           {featured.map((project, index) => (
             <motion.article
               key={project.title}
@@ -174,7 +174,7 @@ export default function ProjectsPage() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-80px" }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
-              className="group relative overflow-hidden rounded-2xl border border-black dark:border-white p-8 md:p-10 min-h-[380px] flex flex-col justify-between"
+              className="group relative overflow-hidden rounded-2xl border border-black dark:border-white p-7 xl:p-8 min-h-[400px] flex flex-col justify-between"
             >
               <span className="pointer-events-none select-none absolute -right-4 -top-10 text-[11rem] font-black leading-none tracking-tighter text-zinc-100 dark:text-zinc-900 transition-colors group-hover:text-red-50 dark:group-hover:text-red-950/40">
                 {String(index + 1).padStart(2, "0")}
@@ -192,7 +192,7 @@ export default function ProjectsPage() {
                   )}
                 </div>
 
-                <h3 className="text-4xl md:text-5xl font-bold tracking-tight mb-4 group-hover:text-red-500 transition-colors">
+                <h3 className="text-3xl xl:text-4xl font-bold tracking-tight mb-4 group-hover:text-red-500 transition-colors">
                   {project.title}
                 </h3>
                 <p className="text-lg text-zinc-600 dark:text-zinc-400 leading-relaxed max-w-md">

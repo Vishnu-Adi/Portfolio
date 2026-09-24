@@ -1,17 +1,5 @@
-"use client";
-
-import React, { useRef } from "react";
-import { motion, useScroll, useTransform } from "framer-motion";
-import {
-  ArrowRight,
-  Briefcase,
-  CalendarDays,
-  GraduationCap,
-  Mail,
-  BookOpen,
-  Download,
-  MapPin,
-} from "lucide-react";
+import { ArrowRight, Download, Mail, MapPin, Phone } from "lucide-react";
+import { RESUME_URL } from "@/lib/site";
 
 // --------------------
 // Components
@@ -28,12 +16,14 @@ const SectionHeader = ({ title, number }: { title: string; number: string }) => 
 const ExperienceItem = ({
   role,
   company,
+  location,
   period,
   description,
   tech,
 }: {
   role: string;
   company: string;
+  location?: string;
   period: string;
   description: string[];
   tech: string[];
@@ -46,7 +36,14 @@ const ExperienceItem = ({
       <span className="font-mono text-sm text-zinc-500">{period}</span>
     </div>
 
-    <h4 className="text-xl font-medium text-zinc-600 dark:text-zinc-400 mb-6">{company}</h4>
+    <h4 className="text-xl font-medium text-zinc-600 dark:text-zinc-400 mb-6">
+      {company}
+      {location && (
+        <span className="ml-2 font-mono text-sm font-normal text-zinc-400">
+          · {location}
+        </span>
+      )}
+    </h4>
 
     <ul className="space-y-3 mb-6">
       {description.map((item, i) => (
@@ -68,11 +65,8 @@ const ExperienceItem = ({
 );
 
 export default function AboutPage() {
-  const containerRef = useRef(null);
-
   return (
-    <div ref={containerRef} className="min-h-screen pt-12 px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto pb-24">
-
+    <div className="min-h-screen pt-12 px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto pb-24">
       {/* Hero Bio */}
       <section className="mb-32">
         <h1 className="text-7xl md:text-9xl font-black tracking-tighter mb-12 leading-[0.8]">
@@ -83,24 +77,30 @@ export default function AboutPage() {
         <div className="grid grid-cols-1 md:grid-cols-12 gap-12">
           <div className="md:col-span-8 text-xl md:text-2xl font-medium leading-relaxed text-zinc-800 dark:text-zinc-200 space-y-8">
             <p>
-              I'm a final-year CSE (Business Systems) student at <span className="font-bold text-black dark:text-white">VIT Vellore</span> (CGPA 9.22) who loves turning ambiguous problems into small, reliable systems.
+              I’m a software engineer and machine learning builder with a B.Tech in Computer Science and Engineering from <span className="font-bold text-black dark:text-white">VIT Vellore</span> (CGPA: 9.22/10.0).
             </p>
             <p>
-              I care about clean interfaces, safety in deployment, and docs that make adoption effortless. When something breaks, I enjoy walking the stack, instrumenting first, and letting data — not hunches — drive fixes. Lately I've been building at the edges of what the browser can do on its own: peer-to-peer file transfer over WebRTC, multi-agent orchestration runtimes, and AI tutoring systems with real memory.
+              I build reliable systems across embedded networking, NLP, Salesforce automation, and modern web and AI products. My recent work includes Cisco router software, RoBERTa-based classification, browser-native peer-to-peer file transfer, and an AI tutor with semantic learner memory. I care about clean interfaces, careful deployments, and documentation that makes systems easier to use and maintain.
             </p>
           </div>
 
           <div className="md:col-span-4 flex flex-col gap-6 font-mono text-sm">
             <div className="flex items-center gap-3">
               <MapPin className="w-4 h-4 text-red-500" />
-              <span>Vellore, India</span>
+              <span>India</span>
             </div>
-            <div className="flex items-center gap-3">
+            <a href="mailto:vishnuadithya7@gmail.com" className="flex items-center gap-3 hover:text-red-500 transition-colors">
               <Mail className="w-4 h-4 text-red-500" />
-              <a href="mailto:vishnuadithya7@gmail.com" className="hover:text-red-500 transition-colors">vishnuadithya7@gmail.com</a>
-            </div>
+              <span className="break-all">vishnuadithya7@gmail.com</span>
+            </a>
+            <a href="tel:+919176376376" className="flex items-center gap-3 hover:text-red-500 transition-colors">
+              <Phone className="w-4 h-4 text-red-500" />
+              <span>9176376376</span>
+            </a>
             <a
-              href="https://vishnu-adithya-portfolio.netlify.app/resume.pdf"
+              href={RESUME_URL}
+              target="_blank"
+              rel="noreferrer"
               className="inline-flex items-center justify-center gap-2 bg-black dark:bg-white text-white dark:text-black py-3 px-4 font-bold hover:bg-red-600 hover:text-white dark:hover:bg-red-600 dark:hover:text-white transition-all"
             >
               <Download className="w-4 h-4" />
@@ -117,59 +117,37 @@ export default function AboutPage() {
           <ExperienceItem
             role="Software Development Engineer Intern"
             company="EmbedUR Systems"
-            period="Jan 2026 - Present"
+            location="Chennai, Tamil Nadu"
+            period="Jan 2026 – Present"
             description={[
-              "Developing and testing embedded software components for Cisco router platforms within a cross-functional embedded systems team.",
-              "Implementing and validating networking protocol features in C/C++, debugging low-level packet-handling logic and partnering with senior engineers on code review."
+              "Develop and test embedded software components for Cisco router platforms as part of a cross-functional systems team, working across hardware and software layers.",
+              "Implement and validate networking protocol features in C/C++, debugging low-level packet-handling logic and partnering with senior engineers on code reviews to ensure correctness before release.",
             ]}
-            tech={["Embedded Systems", "C/C++", "Networking Protocols", "Cisco"]}
+            tech={["C", "C++", "Embedded Systems", "Networking Protocols", "Cisco"]}
           />
 
           <ExperienceItem
-            role="Salesforce Intern (BA + Dev)"
-            company="BNY Mellon"
-            period="Summer 2025"
+            role="Business Analyst and Developer Intern"
+            company="Bank of New York Mellon"
+            location="Chennai, Tamil Nadu"
+            period="May 2025 – Jul 2025"
             description={[
-              "Analyzed requirements and shipped Salesforce automations; improved resolution/ops efficiency by ~30%.",
-              "Planned & executed a zero-downtime destructive deployment: dependency matrix, rollback plan, and CI/CD scripts.",
-              "Built custom objects, Apex triggers, and Lightning flows; collaborated across product/engineering."
+              "Designed and shipped Salesforce automation solutions by analyzing client requirements, boosting operational efficiency by 30% and cutting manual processing time for internal workflows.",
+              "Managed zero-downtime deployments for critical Salesforce updates and resolved functional issues for internal teams, maintaining system uptime through release cycles.",
             ]}
-            tech={["Salesforce", "Apex", "Lightning", "CI/CD", "Reliability"]}
+            tech={["Salesforce", "Automation", "Zero-Downtime Deployments", "Process Improvement"]}
           />
 
           <ExperienceItem
-            role="Machine Learning Intern"
-            company="Hewlett Packard Enterprise (CTY Program)"
-            period="Feb - June 2025"
+            role="Machine Learning Intern, CTY Program"
+            company="Hewlett Packard Enterprise"
+            location="Remote"
+            period="Jan 2025 – May 2025"
             description={[
-              "Architected an NLP pipeline for a query classification system routing complex, unstructured queries from financial reports.",
-              "Built an ensemble around fine-tuned RoBERTa, reaching ~97.3% classification accuracy on sentiment and topic analysis.",
-              "Focused on clarity, safety, and reproducibility with well-structured experiments and documented metrics."
+              "Architected an NLP pipeline for a Query Classification System that routed complex, unstructured queries from financial reports, cutting manual triage effort for the analytics team.",
+              "Engineered the classification engine with fine-tuned RoBERTa and ML ensemble models, achieving 97.3% accuracy on automated sentiment and topic analysis.",
             ]}
-            tech={["NLP", "RoBERTa", "Ensembles", "Evaluation"]}
-          />
-
-          <ExperienceItem
-            role="Software Intern"
-            company="SRM Technologies"
-            period="Jun - Jul 2024"
-            description={[
-              "Developed Flask APIs and backend for a client-facing web app.",
-              "Automated Python ETL pipelines; created Power BI dashboards used in client meetings.",
-              "Worked with Power Automate and MySQL for data workflows."
-            ]}
-            tech={["Flask", "Python", "Power BI", "MySQL"]}
-          />
-
-          <ExperienceItem
-            role="Web/App Developer Intern"
-            company="Nereus Technologies"
-            period="Jul 2024"
-            description={[
-              "Built nereustechnologies.com with React, Tailwind, and TypeScript.",
-              "Contributed to a cross-platform React Native app; integrated Firebase for multi-platform data sync."
-            ]}
-            tech={["React", "Tailwind", "TypeScript", "React Native", "Firebase"]}
+            tech={["NLP", "RoBERTa", "Transformers", "Ensemble Learning", "Model Evaluation"]}
           />
         </div>
       </section>
@@ -179,26 +157,13 @@ export default function AboutPage() {
         <SectionHeader title="Research" number="02" />
         <div className="space-y-12">
           <ExperienceItem
-            role="Researcher (Anomaly Detection)"
-            company="PLOS ONE (Under Review)"
-            period="2025 - 2026"
+            role="Cross-Domain Transfer Learning for WSN Anomaly Detection"
+            company="PLOS ONE"
+            period="Under review"
             description={[
-              "Authored a research paper detailing a novel anomaly-detection framework.",
-              "Developed a hybrid Isolation Forest/LSTM model to address cross-domain transfer learning challenges in IoT/WSN networks."
+              "Authored a research paper proposing a hybrid Isolation Forest/LSTM framework to address cross-domain transfer learning challenges in IoT wireless sensor networks.",
             ]}
             tech={["Isolation Forest", "LSTM", "IoT", "Transfer Learning"]}
-          />
-
-          <ExperienceItem
-            role="NLP Lead"
-            company="HPE CTY Program"
-            period="2024 - 2025"
-            description={[
-              "Led model design and evaluation; reached ~97.3% classification accuracy.",
-              "Built an ensemble around RoBERTa; documented metrics and instrumentation.",
-              "Focused on clarity, safety, and reproducibility with well-structured experiments."
-            ]}
-            tech={["NLP", "RoBERTa", "Ensembles", "Evaluation"]}
           />
         </div>
       </section>
@@ -207,19 +172,25 @@ export default function AboutPage() {
       <section>
         <SectionHeader title="Education" number="03" />
         <div className="bg-zinc-50 dark:bg-zinc-900 p-8 border border-black dark:border-white">
-          <div className="flex flex-col md:flex-row justify-between md:items-end gap-4">
+          <div className="flex flex-col md:flex-row justify-between md:items-end gap-6">
             <div>
               <h3 className="text-3xl font-black mb-2">VIT Vellore</h3>
-              <p className="text-xl text-zinc-600 dark:text-zinc-400">B.Tech — CSE (Business Systems)</p>
+              <p className="text-xl text-zinc-600 dark:text-zinc-400">
+                B.Tech — Computer Science and Engineering
+              </p>
+              <p className="mt-2 font-mono text-sm text-zinc-500">
+                Vellore, India · Aug 2022 – May 2026
+              </p>
             </div>
-            <div className="text-right">
+            <div className="md:text-right">
               <div className="font-mono text-sm text-zinc-500 mb-1">CGPA</div>
-              <div className="text-4xl font-black text-red-500">9.22</div>
+              <div className="text-4xl font-black text-red-500">
+                9.22<span className="text-lg text-zinc-500">/10</span>
+              </div>
             </div>
           </div>
         </div>
       </section>
-
     </div>
   );
 }

@@ -1,22 +1,14 @@
-import { FlatCompat } from '@eslint/eslintrc'
+import { defineConfig, globalIgnores } from "eslint/config";
+import nextVitals from "eslint-config-next/core-web-vitals";
+import nextTypeScript from "eslint-config-next/typescript";
 
-const compat = new FlatCompat({
-  // import.meta.dirname is available after Node.js v20.11.0
-  baseDirectory: import.meta.dirname,
-})
-
-const eslintConfig = [
-  ...compat.config({
-    extends: ['next'],
-    rules: {
-      // Rules already disabled
-      'react/no-unescaped-entities': 'off',
-      '@next/next/no-page-custom-font': 'off',
-      
-      // Additional rules to disable for build errors
-      '@typescript-eslint/no-unused-vars': 'off',  // Disables all unused vars errors
-    },
-  }),
-]
-
-export default eslintConfig
+export default defineConfig([
+  ...nextVitals,
+  ...nextTypeScript,
+  globalIgnores([
+    ".next/**",
+    "out/**",
+    "build/**",
+    "next-env.d.ts",
+  ]),
+]);

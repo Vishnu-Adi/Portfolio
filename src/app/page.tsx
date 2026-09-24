@@ -1,150 +1,155 @@
-"use client";
-
-import type { NextPage } from "next";
-import { Card } from "@/components/ui/card";
-import { ArrowUpRight, Github as GhIcon, Linkedin, FileText, Zap, Code, FolderGit2, Mail } from "lucide-react";
-import { motion } from "framer-motion";
 import Link from "next/link";
+import { ArrowDown, ArrowUpRight } from "lucide-react";
+import { ConnectionMotif } from "@/components/connection-motif";
 import ChatInterface from "@/components/chat-interface";
-import { RESUME_URL } from "@/lib/site";
+import { ProjectVisual } from "@/components/project-visual";
+import { capabilities, featuredProjects, notes } from "@/lib/portfolio-data";
 
-const Home: NextPage = () => {
-  const container = {
-    hidden: { opacity: 0 },
-    show: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.1
-      }
-    }
-  };
-
-  const item = {
-    hidden: { opacity: 0, y: 20 },
-    show: { opacity: 1, y: 0 }
-  };
-
+export default function Home() {
   return (
-    <div className="min-h-screen p-4 md:p-8 flex flex-col items-center justify-center bg-zinc-50 dark:bg-black transition-colors duration-500">
-      <motion.div
-        variants={container}
-        initial="hidden"
-        animate="show"
-        className="w-full max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-4"
-      >
-        {/* 1. Hero Section (Span 2x2) */}
-        <motion.div variants={item} className="md:col-span-2 md:row-span-2">
-          <Link href="/about" className="block h-full">
-            <Card className="relative h-full p-8 flex flex-col justify-between bg-white dark:bg-zinc-900 border-0 shadow-xl hover:shadow-2xl hover:scale-[1.02] transition-all duration-300 rounded-3xl overflow-hidden group">
-              <div className="z-10">
-                <div className="w-12 h-12 bg-red-500 rounded-full flex items-center justify-center mb-6 group-hover:rotate-12 transition-transform">
-                  <Zap className="w-6 h-6 text-white" />
-                </div>
-                <h1 className="text-4xl md:text-6xl font-black tracking-tighter leading-[0.9] mb-4">
-                  VISHNU<br />
-                  <span className="text-zinc-400 dark:text-zinc-600">ADITHYA.</span>
-                </h1>
-                <p className="text-lg font-medium text-zinc-600 dark:text-zinc-400 max-w-sm">
-                  Building reliable software and ML systems across embedded networking, applied AI, and modern web platforms.
-                </p>
-              </div>
-              <div className="flex justify-between items-end z-10 mt-12">
-                <span className="px-3 py-1 bg-zinc-100 dark:bg-zinc-800 rounded-full text-xs font-mono font-bold">
-                  OPEN TO SWE / ML ROLES
-                </span>
-                <div className="w-10 h-10 bg-black dark:bg-white rounded-full flex items-center justify-center group-hover:rotate-45 transition-transform duration-300">
-                  <ArrowUpRight className="w-5 h-5 text-white dark:text-black" />
-                </div>
-              </div>
-              {/* Abstract Bg */}
-              <div className="absolute top-0 right-0 w-64 h-64 bg-gradient-to-br from-red-500/20 to-purple-500/20 blur-3xl rounded-full -mr-16 -mt-16" />
-            </Card>
-          </Link>
-        </motion.div>
+    <div className="home-page">
+      <section className="cover page-frame">
+        <div className="cover__topline mono">
+          <span>VOLUME 01 / PERSONAL SYSTEMS</span>
+          <span>CHENNAI — INDIA / 2026</span>
+        </div>
 
-        {/* 2. Chatbot (Span 2x1) */}
-        <motion.div variants={item} className="md:col-span-2 min-h-[200px]">
-          <div className="h-full rounded-3xl overflow-hidden shadow-xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900">
-            <ChatInterface />
+        <div className="cover__grid">
+          <p className="cover__index">01 — 03<br />SOFTWARE / ML / SYSTEMS</p>
+          <h1 className="cover__title">
+            <span className="cover__title-line">VISHNU</span>
+            <span className="cover__title-line cover__title-line--serif">ADITHYA</span>
+          </h1>
+          <div className="cover__descriptor">
+            <strong>SOFTWARE ENGINEER</strong>
+            <span>MACHINE LEARNING</span>
+            <span>SYSTEMS / INTERFACES</span>
           </div>
-        </motion.div>
+        </div>
 
-        {/* 3. Projects (Span 1x1) */}
-        <motion.div variants={item} className="md:col-span-1">
-          <Link href="/projects" className="block h-full">
-            <Card className="h-full p-6 flex flex-col justify-between bg-zinc-900 dark:bg-white text-white dark:text-black border-0 shadow-xl hover:scale-[1.02] transition-all duration-300 rounded-3xl group">
-              <FolderGit2 className="w-8 h-8" />
-              <div>
-                <h3 className="text-xl font-bold mb-1">Projects</h3>
-                <p className="text-xs opacity-70 font-mono">VIEW WORK</p>
-              </div>
-            </Card>
-          </Link>
-        </motion.div>
+        <div className="cover__motif">
+          <ConnectionMotif />
+        </div>
 
-        {/* 4. Skills (Span 1x1) */}
-        <motion.div variants={item} className="md:col-span-1">
-          <Link href="/skills" className="block h-full">
-            <Card className="h-full p-6 flex flex-col justify-between bg-red-500 text-white border-0 shadow-xl hover:scale-[1.02] transition-all duration-300 rounded-3xl group">
-              <Code className="w-8 h-8" />
-              <div>
-                <h3 className="text-xl font-bold mb-1">Skills</h3>
-                <p className="text-xs opacity-70 font-mono">TECH STACK</p>
-              </div>
-            </Card>
-          </Link>
-        </motion.div>
+        <p className="cover__statement">
+          I like understanding <em>how things work.</em>
+        </p>
 
-        {/* 5. Resume (Span 1x1) */}
-        <motion.div variants={item} className="md:col-span-1">
-          <Link href={RESUME_URL} target="_blank" rel="noreferrer" className="block h-full">
-            <Card className="h-full p-6 flex flex-col justify-between bg-white dark:bg-zinc-900 border-0 shadow-xl hover:scale-[1.02] transition-all duration-300 rounded-3xl group">
-              <FileText className="w-8 h-8 text-zinc-400 group-hover:text-red-500 transition-colors" />
-              <div>
-                <h3 className="text-xl font-bold mb-1">Resume</h3>
-                <p className="text-xs text-zinc-500 font-mono">SWE / ML CV</p>
-              </div>
-            </Card>
-          </Link>
-        </motion.div>
+        <div className="cover__footer mono">
+          <span className="cover__scroll">Scroll to read the work</span>
+          <span>Selected systems, experiments<br />and field notes</span>
+        </div>
+      </section>
 
-        {/* 6. Socials (Span 1x1 - Split) */}
-        <motion.div variants={item} className="md:col-span-1 grid grid-rows-2 gap-4">
-          <Link href="https://github.com/Vishnu-Adi" target="_blank" className="block h-full">
-            <Card className="h-full p-4 flex items-center justify-between bg-zinc-100 dark:bg-zinc-800 border-0 hover:bg-zinc-200 dark:hover:bg-zinc-700 transition-colors rounded-2xl">
-              <GhIcon className="w-6 h-6" />
-              <ArrowUpRight className="w-4 h-4" />
-            </Card>
-          </Link>
-          <Link href="https://www.linkedin.com/in/vishnu-adithya-261477255" target="_blank" className="block h-full">
-            <Card className="h-full p-4 flex items-center justify-between bg-[#0077B5] text-white border-0 hover:opacity-90 transition-opacity rounded-2xl">
-              <Linkedin className="w-6 h-6" />
-              <ArrowUpRight className="w-4 h-4" />
-            </Card>
-          </Link>
-        </motion.div>
+      <section className="home-intro page-frame">
+        <div className="intro-grid">
+          <div className="section-marker">PROFILE / 01</div>
+          <div className="intro-copy">
+            <h2 className="display">A practical kind of <em>curiosity.</em></h2>
+            <p>
+              I build software across embedded networking, machine learning, Salesforce automation, and modern web and AI products. The common thread is not a framework — it is wanting to understand the system beneath the surface.
+            </p>
+            <p>
+              My work moves between low-level packet handling and browser-native file transfer; between a carefully measured model and an interface that makes it understandable. I care about clear choices, useful constraints, and the part of a system that only shows up when it fails.
+            </p>
+            <div className="intro-links">
+              <Link className="text-link" href="/about">Read the profile <ArrowUpRight size={15} strokeWidth={1.25} /></Link>
+              <a className="text-link" href="mailto:vishnuadithya7@gmail.com">Start a conversation <ArrowUpRight size={15} strokeWidth={1.25} /></a>
+            </div>
+          </div>
+        </div>
+      </section>
 
-        {/* 7. Contact / Email (Span 2x1) */}
-        <motion.div variants={item} className="md:col-span-2">
-          <a href="mailto:vishnuadithya7@gmail.com" className="block h-full">
-            <Card className="h-full p-6 flex items-center justify-between bg-gradient-to-r from-zinc-900 to-zinc-800 dark:from-zinc-100 dark:to-zinc-200 text-white dark:text-black border-0 shadow-xl hover:scale-[1.02] transition-all duration-300 rounded-3xl group">
-              <div className="flex items-center gap-4">
-                <div className="w-12 h-12 bg-white/10 dark:bg-black/10 rounded-full flex items-center justify-center">
-                  <Mail className="w-6 h-6" />
-                </div>
-                <div>
-                  <h3 className="text-lg font-bold">Let&apos;s work together</h3>
-                  <p className="text-sm opacity-70">vishnuadithya7@gmail.com</p>
+      <section className="selected-work page-frame">
+        <div className="section-heading">
+          <h2 className="display">Selected work</h2>
+          <span className="section-heading__count">01 — 03 / FEATURED SYSTEMS</span>
+        </div>
+        <div className="project-list">
+          {featuredProjects.map((project) => (
+            <article className="project-entry" key={project.slug}>
+              <p className="project-entry__number">{project.number} / {project.year}</p>
+              <div className="project-entry__content">
+                <p className="eyebrow">{project.category}</p>
+                <h3 className="project-entry__title display">
+                  {project.titleLines.map((line) => <span key={line}>{line}</span>)}
+                </h3>
+                <p className="project-entry__description">{project.description}</p>
+                <p className="project-entry__meta">
+                  <span>{project.year}</span>
+                  <span>{project.technologies.slice(0, 3).join(" / ")}</span>
+                </p>
+                <p className="project-entry__tags">
+                  {project.technologies.map((technology) => <span key={technology}>{technology}</span>)}
+                </p>
+                <div className="project-entry__links">
+                  <Link href={`/projects/${project.slug}`}>Read case study <ArrowUpRight size={14} strokeWidth={1.25} /></Link>
+                  {project.links[0] && (
+                    <a href={project.links[0].href} target="_blank" rel="noreferrer">
+                      {project.links[0].label} <ArrowUpRight size={14} strokeWidth={1.25} />
+                    </a>
+                  )}
                 </div>
               </div>
-              <ArrowUpRight className="w-6 h-6 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
-            </Card>
-          </a>
-        </motion.div>
+              <Link href={`/projects/${project.slug}`} className="project-entry__visual" aria-label={`Read the ${project.title} case study`}>
+                <ProjectVisual project={project.visual} compact />
+              </Link>
+            </article>
+          ))}
+        </div>
+      </section>
 
-      </motion.div>
+      <section className="practice-section page-frame">
+        <div className="practice-grid">
+          <div className="section-marker">PRACTICE / 02</div>
+          <div>
+            <div className="section-heading">
+              <h2 className="display">The work sits between.</h2>
+              <span className="section-heading__count">CAPABILITIES / NOT A LIST</span>
+            </div>
+            <div className="practice-lines">
+              {capabilities.slice(0, 4).map((capability) => (
+                <div className="practice-line" key={capability.index}>
+                  <span className="practice-line__number">{capability.index}</span>
+                  <div>
+                    <h3>{capability.title}</h3>
+                    <p>{capability.statement}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+            <Link className="text-link notes-preview__link" href="/skills">See the capability index <ArrowUpRight size={15} strokeWidth={1.25} /></Link>
+          </div>
+        </div>
+      </section>
+
+      <section className="notes-preview page-frame">
+        <div className="section-heading">
+          <h2 className="display">Field notes</h2>
+          <span className="section-heading__count">THINKING / IN PROGRESS</span>
+        </div>
+        <div>
+          {notes.slice(0, 2).map((note) => (
+            <Link href="/notes" className="note-preview" key={note.index}>
+              <span className="note-preview__index">{note.index}</span>
+              <h3>{note.title}</h3>
+              <p>{note.dek}</p>
+            </Link>
+          ))}
+        </div>
+        <Link className="text-link notes-preview__link" href="/notes">Read the notes <ArrowUpRight size={15} strokeWidth={1.25} /></Link>
+      </section>
+
+      <section className="home-ask page-frame">
+        <ChatInterface />
+      </section>
+
+      <div className="page-frame" aria-hidden="true">
+        <div className="flex items-center gap-3 border-t border-line py-4 text-muted">
+          <ArrowDown size={14} strokeWidth={1.25} />
+          <span className="mono">END OF COVER / THE WORK CONTINUES IN THE ARCHIVE</span>
+        </div>
+      </div>
     </div>
   );
-};
-
-export default Home;
+}

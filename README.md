@@ -1,6 +1,6 @@
 # Vishnu Adithya Portfolio
 
-A responsive software engineering and machine learning portfolio built with Next.js 16, React 19, TypeScript, Tailwind CSS, Framer Motion, and the AI SDK.
+A responsive software engineering and machine learning portfolio built with Next.js 16, React 19, TypeScript, Tailwind CSS, CSS/SVG technical visuals, and the AI SDK.
 
 ## Requirements
 
